@@ -148,6 +148,7 @@ static int cmd_x(char* args){
       char* s;
       if (sscanf(arg,"0x%x",s)) {
         //w [num] [addr]
+        return 0;
         int addr = atoi(s);
         printf("addr = %d\n",addr);
       }else{
