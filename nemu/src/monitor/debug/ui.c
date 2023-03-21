@@ -86,13 +86,15 @@ static int cmd_si(char *args){
     cpu_exec(1);
   }
   else {
-    
-        if(isdigit(arg)){
-          //int k = atoi(arg);
-          cpu_exec(1);
-          return 0;
-        }
-    printf("Invalid input '%s'\n", arg);
+      for (int i = 0; i < strlen(arg); i++) {
+          if(!isdigit(arg[i]))
+          {
+            printf("Invalid input '%s'\n", arg);
+            return 0;
+          }
+      }
+      cpu_exec(atoi(arg));
+      return 0;
   }
   return 0;
 }
