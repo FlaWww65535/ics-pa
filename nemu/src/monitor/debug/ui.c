@@ -123,6 +123,7 @@ static int cmd_info(char *args){
         }
       }else if(strcmp(arg,"w") == 0){
         //info w
+        print_wps();
       }else{
         printf("Invalid input '%s'\n",arg);
       }

@@ -49,7 +49,7 @@ void free_wp(int wp_no){
     else{continue;}
     assert(wp!=NULL);
     print_wp(wp);
-    printf("has deleted");
+    printf("has deleted\n");
     it->next =wp->next;
     wp->next=free_;
     free_ =wp;
