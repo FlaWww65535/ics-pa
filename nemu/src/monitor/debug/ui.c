@@ -42,7 +42,7 @@ static int cmd_info(char *args);
 static int cmd_x(char *args);
 static int cmd_p(char *args);
 static int cmd_w(char *args);
-
+static int cmd_d(char *args);
 
 static struct {
   char *name;
@@ -57,6 +57,7 @@ static struct {
   { "x", "Examine a section of memory and print",cmd_x},
   { "p", "Evaluate the expression",cmd_p},
   { "w", "Set a watchpoint to determined expression",cmd_w},
+  { "d", "Delete a watchpoint",cmd_d},
 
   /* TODO: Add more commands */
 
@@ -198,6 +199,26 @@ static int cmd_w(char *args){//watchpoint
       printf("Invalid input '%s'\n",arg);
     } 
   } 
+  return 0;
+}
+
+
+static int cmd_d(char *args){
+  char *arg = strtok(NULL, " ");
+
+  if (arg == NULL) {
+    printf("Require an argument -- d [wp_no]\n");
+  }
+  else {
+      for (int i = 0; i < strlen(arg); i++) {
+          if(!isdigit(arg[i]))
+          {
+            printf("Invalid input '%s'\n", arg);
+            return 0;
+          }
+      }
+      free_wp(atoi(arg));
+  }
   return 0;
 }
 

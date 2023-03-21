@@ -40,24 +40,33 @@ WP* new_wp(char* e){
   return new;
 }
 
-void free_wp(WP* wp){
+void free_wp(int wp_no){
   for(WP* it = head; it; it= it->next){
-    if(it->next == wp){
+    if(it->next!=NULL && it->next->NO == wp_no){
+      WP* wp=it->next;
+      print_wp(wp);
       it->next =wp->next;
       wp->next=free_;
       free_ =wp;
+      return;
     }
   }
   Log("Failed to free watchpoint\n");
-  assert(0);
 }
 
-void print_wp(WP *wp,bool isupdate){
+void print_wp(WP *wp){
   bool success = true;
   int val = expr(wp->expr,&success);
   assert(success==true);
   printf("Watchpoint %d: %s\nvalue = %d\n",wp->NO,wp->expr,val);
 }
+
+void print_wps(){
+  for(WP* it = head; it; it= it->next){
+    print_wp(it);
+  }
+}
+
 bool check_wp(){
   bool flag=false;
   for(WP* it = head; it; it= it->next){

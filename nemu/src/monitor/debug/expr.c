@@ -147,7 +147,7 @@ int eval(int p,int q){
   {
     return 0;
   }else if(p==q){
-      //TODO:DONE register pointor
+    //TODO:DONE register pointor
     switch(tokens[p].type){
     case TK_INT:
       return atoi(tokens[p].str);
