@@ -145,7 +145,13 @@ int eval(int p,int q){
   }else{
     int domain=p;
     int level =0;
+    int stack=0;  //consider in-bracket condition
     for(int i=p;i<=q;i++){
+
+      if(tokens[i].type=='('){stack++;}
+      if(tokens[i].type==')'){stack--;}
+      assert(stack>=0);
+      if(stack>0)continue;
       int lvl =tokens[i].level;
       if(lvl>=2&&lvl>=level){
         domain  = i;
