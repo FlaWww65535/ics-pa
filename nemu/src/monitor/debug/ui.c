@@ -41,6 +41,7 @@ static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
 static int cmd_p(char *args);
+static int cmd_w(char *args);
 
 
 static struct {
@@ -55,6 +56,7 @@ static struct {
   { "info", "info [SUBCMD]--Print info",cmd_info},
   { "x", "Examine a section of memory and print",cmd_x},
   { "p", "Evaluate the expression",cmd_p},
+  { "w", "Set a watchpoint to determined expression",cmd_w},
 
   /* TODO: Add more commands */
 
@@ -180,6 +182,24 @@ static int cmd_p(char *args){
   return 0;
 }
 
+static int cmd_w(char *args){//watchpoint
+  char *arg = strtok(NULL, "\0");
+
+  if (arg == NULL) {
+    printf("Require an argument -- w [expr]\n");
+  }
+  else {
+    bool success = true;
+    int val = expr(arg,&success);
+    if(success){
+      new_wp(arg);
+    }
+    else{
+      printf("Invalid input '%s'\n",arg);
+    } 
+  } 
+  return 0;
+}
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {

@@ -22,12 +22,16 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 
-WP* new_wp(char* expr){
+WP* new_wp(char* e){
   WP* new = free_;
   if(new==NULL){
     Log("You can set %d Watchpoints at most\n",NR_WP);
     assert(0);
   }
+  memcpy(new->expr,e,strlen(e));
+  bool success = true;
+  new->val = expr(e,&success);
+  assert(success==true);
   free_ = new->next;
   new->next = head;
   head = new;
@@ -45,4 +49,24 @@ void free_wp(WP* wp){
   assert(0);
 }
 
+void print_wp(WP *wp,bool isupdate){
+  bool success = true;
+  int val = expr(wp->expr,&success);
+  assert(success==true);
+  printf("Watchpoint %d: %s\nvalue = %d\n",wp->NO,wp->expr,val);
+}
+bool check_wp(){
+  bool flag=false;
+  for(WP* it = head; it; it= it->next){
+    bool success = true;
+    int val = expr(it->expr,&success);
+    assert(success==true);
+    if(val!=it->val){
+      printf("Watchpoint %d: %s\nOld value = %d\nNew value = %d\n",it->NO,it->expr,it->val,val);
+      it->val=val;
+      flag=true;
+    }
+  }
+  return flag;
+}
 
