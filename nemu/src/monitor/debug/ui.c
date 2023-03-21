@@ -36,9 +36,11 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_help(char *args);
+
 static int cmd_si(char *args);
 
-static int cmd_help(char *args);
+static int cmd_info(char *args);
 
 static struct {
   char *name;
@@ -49,6 +51,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Execute instructions(default as 1)", cmd_si },
+  {"info","info [SUBCMD]--Print info",cmd_info},
 
   /* TODO: Add more commands */
 
@@ -94,7 +97,26 @@ static int cmd_si(char *args){
           }
       }
       cpu_exec(atoi(arg));
-      return 0;
+  }
+  return 0;
+}
+
+static int cmd_info(char *args){
+  
+  char *arg = strtok(NULL, " ");
+
+  if (arg == NULL) {
+    printf("Info requires an argument");
+  }
+  else {
+      if (strcmp(arg,"r") == 0) {
+        //info r
+        
+      }else if(strcmp(arg,"w") == 0){
+        //info w
+      }else{
+        printf("Invalid input '%s'\n",arg);
+      }
   }
   return 0;
 }
