@@ -87,8 +87,9 @@ static int cmd_si(char *args){
     cpu_exec(1);
   }
   else {
+    printf("arg is %s\n",arg);
         if(isdigit(arg)){
-          //printf("arg is %s\n",arg);
+          
           //int k = atoi(arg);
           //cpu_exec(k);
           //return 0;
