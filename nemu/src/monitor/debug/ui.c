@@ -145,11 +145,9 @@ static int cmd_x(char* args){
         printf("Require arguments -- x [num] [start_addr]\n");
         return 0;
       }
-      char* s;
-      if (sscanf(arg,"0x%x",s)) {
+      int addr;
+      if (sscanf(arg,"%x",&addr)) {
         //w [num] [addr]
-        return 0;
-        int addr = atoi(s);
         printf("addr = %d\n",addr);
       }else{
         printf("Invalid input '%s'\n",arg);
