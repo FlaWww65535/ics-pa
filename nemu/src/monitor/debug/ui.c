@@ -52,7 +52,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Execute instructions(default as 1)", cmd_si },
   { "info", "info [SUBCMD]--Print info",cmd_info},
-  { "x", "Examine a section of memory and print"},
+  { "x", "Examine a section of memory and print",cmd_x},
 
   /* TODO: Add more commands */
 
@@ -139,7 +139,7 @@ static int cmd_x(char* args){
             return 0;
           }
       }
-      return 0;
+      return 0; 
       int num = atoi(arg);
       arg = strtok(NULL," ");
       if (arg == NULL) {
