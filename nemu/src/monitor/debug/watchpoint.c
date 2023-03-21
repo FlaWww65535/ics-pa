@@ -30,7 +30,7 @@ WP* new_wp(char* e){
     assert(0);
   }
   Log("%s",e);
-  memcpy(e,new->expr,strlen(e));
+  memcpy(new->expr,e,3);
   
   return NULL;
   bool success = true;
