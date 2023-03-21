@@ -146,7 +146,6 @@ static int cmd_x(char* args){
         return 0;
       }
       char* s;
-      return 0;
       if (sscanf(arg,"0x%x",s)) {
         //w [num] [addr]
         int addr = atoi(s);
