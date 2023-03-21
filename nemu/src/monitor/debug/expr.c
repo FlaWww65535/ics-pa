@@ -150,8 +150,8 @@ int eval(int p,int q){
 
       if(tokens[i].type=='('){stack++;}
       if(tokens[i].type==')'){stack--;}
-      assert(stack>=0);
-      if(stack>0)continue;
+      assert(stack>=0);//bracket should match
+      if(stack>0)continue;//if in-bracket,ignore
       int lvl =tokens[i].level;
       if(lvl>=2&&lvl>=level){
         domain  = i;
