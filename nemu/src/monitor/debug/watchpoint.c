@@ -31,11 +31,9 @@ WP* new_wp(char* e){
   }
   
   memcpy(new->expr,e,strlen(e)+1);
-  Log("%s",e);
   bool success = true;
   new->val = expr(e,&success);
   assert(success==true);
-  Log("new_wp\n");
   free_ = new->next;
   new->next = head;
   head = new;
