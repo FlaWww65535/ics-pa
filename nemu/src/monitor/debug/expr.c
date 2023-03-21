@@ -9,9 +9,10 @@
 
 enum {
   TK_NOTYPE = 256, 
-  TK_EQ,TK_NEQ,
+  TK_EQ,TK_NEQ,TK_LOGIC_OR,TK_LOGIC_AND,
   TK_INT,TK_HEX,TK_REG,
-  TK_DEREF,TK_UNARY,
+  TK_UNARY_DEREF,TK_UNARY_NEG,
+  
 
   /* TODO: Add more token types */
 
@@ -34,12 +35,16 @@ static struct rule {
   {"\\b[0-9]+\\b",TK_INT,0},    //INTEGER
   {"==",    TK_EQ,  5},         // equal
   {"!=",    TK_NEQ, 5},         // not-equal
+  {"&&",    TK_LOGIC_AND, 5},         // not-equal
+  {"||",    TK_LOGIC_OR, 5},         // not-equal
   {"\\+",   '+',    4},         // plus
   {"-",     '-',    4},         // minus
   {"\\*",   '*',    3},         // multiple
   {"/",     '/',    3},         // divide
+  {"!",     '!',    2},
   {"\\(",   '(',    1},         // left-bracket
   {"\\)",   ')',    0},         // right-bracket
+  
 
 
 };
@@ -142,7 +147,7 @@ int eval(int p,int q){
   {
     return 0;
   }else if(p==q){
-      //TODO register pointor
+      //TODO:DONE register pointor
     switch(tokens[p].type){
     case TK_INT:
       return atoi(tokens[p].str);
@@ -173,11 +178,16 @@ int eval(int p,int q){
     int level =tokens[p].level;
     if(level==2){
       switch(tokens[p].type){
-        case TK_DEREF:
+        case TK_UNARY_DEREF:
           //Log("Deref\n");
           return vaddr_read(eval(p+1,q),4);
-        case TK_UNARY:
+        case TK_UNARY_NEG:
           return -eval(p+1,q);
+        case '!':
+          return !eval(p+1,q);
+        default:
+          Log("not inmplement unary operator\n");
+          assert(0);
       }
     }
 
@@ -201,6 +211,10 @@ int eval(int p,int q){
         return eval(p,domain-1) == eval(domain+1,q);
       case TK_NEQ:
         return eval(p,domain-1) != eval(domain+1,q);
+      case TK_LOGIC_OR:
+        return eval(p,domain-1) || eval(domain+1,q);
+      case TK_LOGIC_AND:
+        return eval(p,domain-1) && eval(domain+1,q);
       case '+':
         return eval(p,domain-1) +  eval(domain+1,q);
       case '-':
@@ -231,11 +245,11 @@ uint32_t expr(char *e, bool *success) {
     }
 
     if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].level>0) ) {
-      tokens[i].type = TK_DEREF;
+      tokens[i].type = TK_UNARY_DEREF;
       tokens[i].level=2;
     }
     if (tokens[i].type == '-' && (i == 0 || tokens[i - 1].level>0) ) {
-       tokens[i].type = TK_UNARY;
+       tokens[i].type = TK_UNARY_NEG;
        tokens[i].level=2;
     }
     Log("token %d type %d\n",i,tokens[i].level);
