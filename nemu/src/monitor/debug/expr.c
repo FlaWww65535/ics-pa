@@ -144,12 +144,13 @@ int eval(int p,int q){
   }else if(check_parentheses(p,q)==true){
     return eval(p+1,q-1);
   }else{
-    
+
     int domain=p;
     int level =tokens[p].level;
     if(level>=2){
       switch(tokens[p].type){
         case TK_DEREF:
+          Log("Deref\n");
           return vaddr_read(eval(p+1,q),4);
       }
     }
