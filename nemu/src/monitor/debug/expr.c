@@ -228,9 +228,9 @@ uint32_t expr(char *e, bool *success) {
     if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].level>0) ) {
       tokens[i].type = TK_DEREF;
     }
-    // if (tokens[i].type == '-' && (i == 0 || tokens[i - 1].level>0) ) {
-    //   tokens[i].type = TK_UNARY;
-    // }
+    if (tokens[i].type == '-' && (i == 0 || tokens[i - 1].level>0) ) {
+       tokens[i].type = TK_UNARY;
+    }
   }
   /* TODO: Insert codes to evaluate the expression. */
   return eval(0,nr_token-1);
