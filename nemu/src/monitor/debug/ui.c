@@ -114,7 +114,7 @@ static int cmd_info(char *args){
         //info r
         printf("%-10s0x%08x\n","eip",cpu.eip);
         for(int i=0;i<8;i++){
-          printf("%-10s0x%08x\n",reg_name(i,4),cpu.gpr[i]);
+          printf("%-10s0x%08x\n",reg_name(i,4),reg_l(i));
         }
       }else if(strcmp(arg,"w") == 0){
         //info w
@@ -148,7 +148,10 @@ static int cmd_x(char* args){
       int addr;
       if (sscanf(arg,"%x",&addr)) {
         //w [num] [addr]
-        printf("addr = %d\n",addr);
+        for(int i=0;i<num;i++){
+          printf("0x%x: %x\n",addr+i*4,vaddr_read(addr,4+i*4));
+        }
+
       }else{
         printf("Invalid input '%s'\n",arg);
       }
