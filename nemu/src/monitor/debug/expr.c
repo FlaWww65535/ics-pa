@@ -229,9 +229,11 @@ uint32_t expr(char *e, bool *success) {
 
     if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].level>0) ) {
       tokens[i].type = TK_DEREF;
+      tokens[i].level=1;
     }
     if (tokens[i].type == '-' && (i == 0 || tokens[i - 1].level>0) ) {
        tokens[i].type = TK_UNARY;
+       tokens[i].level=1;
     }
     Log("token %d type %d\n",i,tokens[i].type);
   }
