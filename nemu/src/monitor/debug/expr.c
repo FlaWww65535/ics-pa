@@ -35,8 +35,8 @@ static struct rule {
   {"\\b[0-9]+\\b",TK_INT,0},    //INTEGER
   {"==",    TK_EQ,  5},         // equal
   {"!=",    TK_NEQ, 5},         // not-equal
-  {"&&",    TK_LOGIC_AND, 5},         // not-equal
-  {"||",    TK_LOGIC_OR, 5},         // not-equal
+  {"\\&\\&",    TK_LOGIC_AND, 5},         // not-equal
+  {"\\|\\|",    TK_LOGIC_OR, 5},         // not-equal
   {"\\+",   '+',    4},         // plus
   {"-",     '-',    4},         // minus
   {"\\*",   '*',    3},         // multiple
