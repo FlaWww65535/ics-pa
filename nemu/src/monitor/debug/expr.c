@@ -237,7 +237,7 @@ uint32_t expr(char *e, bool *success) {
        tokens[i].type = TK_UNARY;
        tokens[i].level=0;
     }
-    Log("token %d type %d\n",i,tokens[i].type);
+    Log("token %d type %d\n",i,tokens[i].level);
   }
   /* TODO: Insert codes to evaluate the expression. */
   return eval(0,nr_token-1);
