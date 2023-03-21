@@ -8,7 +8,8 @@
 
 enum {
   TK_NOTYPE = 256, TK_EQ,
-  TK_NEQ,TK_INT
+  TK_NEQ,TK_INT,TK_DEREF,
+  TK_UNARY,
 
   /* TODO: Add more token types */
 
@@ -143,8 +144,16 @@ int eval(int p,int q){
   }else if(check_parentheses(p,q)==true){
     return eval(p+1,q-1);
   }else{
+    
     int domain=p;
-    int level =0;
+    int level =tokens[p].level;
+    if(level>=2){
+      switch(tokens[p].type){
+        case TK_DEREF:
+          return vaddr_read(eval(p+1,q),4);
+      }
+    }
+
     int stack=0;  //consider in-bracket condition
     for(int i=p;i<=q;i++){
 
@@ -158,6 +167,7 @@ int eval(int p,int q){
         level   = lvl;
       }
     }
+
     switch(tokens[domain].type){
       case TK_EQ:
         return eval(p,domain-1) == eval(domain+1,q);
@@ -183,7 +193,14 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-
+  for (int i = 0; i < nr_token; i ++) {
+    if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].level>0) ) {
+      tokens[i].type = TK_DEREF;
+    }
+    // if (tokens[i].type == '-' && (i == 0 || tokens[i - 1].level>0) ) {
+    //   tokens[i].type = TK_UNARY;
+    // }
+  }
   /* TODO: Insert codes to evaluate the expression. */
   return eval(0,nr_token-1);
 
