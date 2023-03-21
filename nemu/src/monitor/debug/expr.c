@@ -209,9 +209,11 @@ int eval(int p,int q){
       case '/':
         return eval(p,domain-1) /  eval(domain+1,q);
       default:
+        Log("not inmplement operator\n");
         assert(0);
     }
   }
+  Log("Unexcepted condition\n");
   assert(0);
 }
 
