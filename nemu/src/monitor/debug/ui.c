@@ -89,7 +89,6 @@ static int cmd_si(char *args){
   else {
       if(isdigit(arg)){
         i = atoi(arg);
-        printf("take");
         cpu_exec(i);
       }
     printf("Invalid input '%s'\n", arg);
