@@ -42,25 +42,18 @@ WP* new_wp(char* e){
 }
 
 void free_wp(int wp_no){
-  if(head!=NULL && head->NO == wp_no){
-      WP* wp=head;
-      printf("Delete ");
-      print_wp(wp);
-      head =wp->next;
-      wp->next=free_;
-      free_ =wp;
-      return;
-  }
   for(WP* it = head; it; it= it->next){
-    if(it->next!=NULL && it->next->NO == wp_no){
-      WP* wp=it->next;
-      printf("Delete ");
-      print_wp(wp);
-      it->next =wp->next;
-      wp->next=free_;
-      free_ =wp;
-      return;
-    }
+    WP* wp=NULL;
+    if(head!=NULL && head->NO == wp_no){wp=head;}
+    else if(it->next!=NULL && it->next->NO == wp_no){wp=it->next;}
+    else{continue;}
+    assert(wp!=NULL);
+    print_wp(wp);
+    printf("has deleted");
+    it->next =wp->next;
+    wp->next=free_;
+    free_ =wp;
+    return;
   }
   Log("Failed to free watchpoint\n");
 }
