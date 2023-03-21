@@ -39,6 +39,7 @@ WP* new_wp(char* e){
   free_ = new->next;
   new->next = head;
   head = new;
+  return new;
 }
 
 void free_wp(WP* wp){
