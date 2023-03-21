@@ -39,7 +39,7 @@ static struct rule {
   {"\\*",   '*',    3},         // multiple
   {"/",     '/',    3},         // divide
   {"\\(",   '(',    1},         // left-bracket
-  {"\\)",   ')',    1},         // right-bracket
+  {"\\)",   ')',    0},         // right-bracket
 
 
 };
