@@ -32,12 +32,12 @@ static struct rule {
   {"\\$[a-zA-Z]+",TK_REG,0},    //REGISTER
   {"\\b0(X|x)[0-9a-fA-F]+\\b",TK_HEX,0},//HEX NUMBER
   {"\\b[0-9]+\\b",TK_INT,0},    //INTEGER
-  {"==",    TK_EQ,  4},         // equal
-  {"!=",    TK_NEQ, 4},         // not-equal
-  {"\\+",   '+',    3},         // plus
-  {"-",     '-',    3},         // minus
-  {"\\*",   '*',    2},         // multiple
-  {"/",     '/',    2},         // divide
+  {"==",    TK_EQ,  5},         // equal
+  {"!=",    TK_NEQ, 5},         // not-equal
+  {"\\+",   '+',    4},         // plus
+  {"-",     '-',    4},         // minus
+  {"\\*",   '*',    3},         // multiple
+  {"/",     '/',    3},         // divide
   {"\\(",   '(',    1},         // left-bracket
   {"\\)",   ')',    1},         // right-bracket
 
@@ -171,7 +171,7 @@ int eval(int p,int q){
 
     int domain=p;
     int level =tokens[p].level;
-    if(level>=2){
+    if(level>=3){
       switch(tokens[p].type){
         case TK_DEREF:
           //Log("Deref\n");
@@ -189,7 +189,7 @@ int eval(int p,int q){
       assert(stack>=0);//bracket should match
       if(stack>0)continue;//if in-bracket,ignore
       int lvl =tokens[i].level;
-      if(lvl>=2&&lvl>=level){
+      if(lvl>=3&&lvl>=level){
         domain  = i;
         level   = lvl;
       }
@@ -231,11 +231,11 @@ uint32_t expr(char *e, bool *success) {
 
     if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].level>0) ) {
       tokens[i].type = TK_DEREF;
-      tokens[i].level=0;
+      tokens[i].level=2;
     }
     if (tokens[i].type == '-' && (i == 0 || tokens[i - 1].level>0) ) {
        tokens[i].type = TK_UNARY;
-       tokens[i].level=0;
+       tokens[i].level=2;
     }
     Log("token %d type %d\n",i,tokens[i].type);
   }
