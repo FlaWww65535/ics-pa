@@ -7,24 +7,36 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ
+  TK_NOTYPE = 256, TK_EQ,
+  TK_NEQ,TK_INT
 
   /* TODO: Add more token types */
 
 };
 
+
 static struct rule {
   char *regex;
   int token_type;
+  int level;
 } rules[] = {
 
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
 
-  {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
-  {"==", TK_EQ}         // equal
+  {" +",    TK_NOTYPE,0},       // spaces
+  {"\\b[0-9]+\\b",TK_INT,0},    //INTEGER
+  {"==",    TK_EQ,  4},         // equal
+  {"!=",    TK_NEQ, 4},         // not-equal
+  {"\\+",   '+',    3},         // plus
+  {"-",     '-',    3},         // minus
+  {"\\*",   '*',    2},         // multiple
+  {"/",     '/',    2},         // divide
+  {"\\(",   '(',    1},         // left-bracket
+  {"\\)",   ')',    1},         // right-bracket
+
+
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -51,6 +63,7 @@ void init_regex() {
 typedef struct token {
   int type;
   char str[32];
+  int level;
 } Token;
 
 Token tokens[32];
@@ -80,7 +93,18 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          default: TODO();
+          case TK_NOTYPE:
+            break;
+          default: 
+          {
+            assert(substr_len<32);
+            assert(nr_token<32);
+            strncpy(tokens[nr_token].str,substr_start,substr_len);
+            tokens[nr_token].str[substr_len]='\0';
+            tokens[nr_token].type = rules[i].token_type;
+            tokens[nr_token].level = rules[i].level;
+            nr_token++;
+          } 
         }
 
         break;
@@ -96,6 +120,58 @@ static bool make_token(char *e) {
   return true;
 }
 
+bool check_parentheses(int p,int q){
+  if(p>=q)return false;
+  if(!(tokens[p].type=='('&&tokens[q].type==')'))return false;
+  int stack=0;
+  for(int i=p;i<=q;i++){
+    if(tokens[i].type=='('){stack++;}
+    if(tokens[i].type==')'){stack--;}
+    if(stack<0)return false;
+  }
+  return stack == 0;
+}
+
+int eval(int p,int q){
+  if(p>q)
+  {
+    return 0;
+  }else if(p==q){
+      //TODO register pointor
+    return atoi(tokens[p].str);
+
+  }else if(check_parentheses(p,q)==true){
+    return eval(p+1,q-1);
+  }else{
+    int domain=p;
+    int level =0;
+    for(int i=p;i<=q;i++){
+      int lvl =tokens[i].level;
+      if(lvl>=2&&lvl>=level){
+        domain  = i;
+        level   = lvl;
+      }
+    }
+    switch(tokens[domain].type){
+      case TK_EQ:
+        return eval(p,domain-1) == eval(domain+1,q);
+      case TK_NEQ:
+        return eval(p,domain-1) != eval(domain+1,q);
+      case '+':
+        return eval(p,domain-1) +  eval(domain+1,q);
+      case '-':
+        return eval(p,domain-1) -  eval(domain+1,q);
+      case '*':
+        return eval(p,domain-1) *  eval(domain+1,q);
+      case '/':
+        return eval(p,domain-1) /  eval(domain+1,q);
+      default:
+        assert(0);
+    }
+  }
+  assert(0);
+}
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -103,7 +179,6 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  return eval(0,nr_token-1);
 
-  return 0;
 }

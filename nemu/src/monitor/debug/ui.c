@@ -40,6 +40,7 @@ static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
+static int cmd_p(char *args);
 
 
 static struct {
@@ -53,6 +54,7 @@ static struct {
   { "si", "Execute instructions(default as 1)", cmd_si },
   { "info", "info [SUBCMD]--Print info",cmd_info},
   { "x", "Examine a section of memory and print",cmd_x},
+  { "p", "Evaluate the expression",cmd_p},
 
   /* TODO: Add more commands */
 
@@ -158,6 +160,26 @@ static int cmd_x(char* args){
   }
   return 0;
 }
+
+static int cmd_p(char *args){
+  char *arg = strtok(NULL, "\0");
+
+  if (arg == NULL) {
+    printf("Require an argument -- p [expr]\n");
+  }
+  else {
+    bool success = true;
+    int val = expr(arg,&success);
+    if(success){
+      printf("hex:%x\toct:%d\n",val,val);
+    }
+    else{
+      printf("Invalid input '%s'\n",arg);
+    } 
+  } 
+  return 0;
+}
+
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
