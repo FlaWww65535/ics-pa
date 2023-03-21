@@ -142,21 +142,21 @@ static int cmd_x(char* args){
           }
       }
       int num = atoi(arg);
-      arg = strtok(NULL," ");
+      arg = strtok(NULL,"\0");
       if (arg == NULL) {
         printf("Require arguments -- x [num] [start_addr]\n");
         return 0;
       }
-      int addr;
-      if (sscanf(arg,"%x",&addr)) {
-        //w [num] [addr]
+      bool success =true;
+      int addr=expr(arg,&success);
+      if(success){
         for(int i=0;i<num;i++){
           printf("0x%x: %08x\n",addr+i*4,paddr_read(addr+i*4,4));
         }
-
-      }else{
-        printf("Invalid input '%s'\n",arg);
       }
+      else{
+        printf("Invalid input '%s'\n",arg);
+      } 
   }
   return 0;
 }
