@@ -81,15 +81,15 @@ static int cmd_help(char *args) {
 
 static int cmd_si(char *args){
   char *arg = strtok(NULL, " ");
-  int i;
 
   if (arg == NULL) {
     cpu_exec(1);
   }
   else {
-    int k = atoi(arg);
+    
         if(isdigit(arg)){
-          cpu_exec(k);
+          //int k = atoi(arg);
+          cpu_exec(1);
           return 0;
         }
     printf("Invalid input '%s'\n", arg);
