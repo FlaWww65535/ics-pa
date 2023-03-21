@@ -149,7 +149,7 @@ static int cmd_x(char* args){
       if (sscanf(arg,"%x",&addr)) {
         //w [num] [addr]
         for(int i=0;i<num;i++){
-          printf("0x%x: %x\n",addr+i*4,vaddr_read(addr,4+i*4));
+          printf("0x%x: %x\n",addr+i*4,paddr_read(addr,4+i*4));
         }
 
       }else{
