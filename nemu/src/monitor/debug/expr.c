@@ -207,7 +207,8 @@ int eval(int p,int q){
       case '/':
         return eval(p,domain-1) /  eval(domain+1,q);
       default:
-        assert(0);
+        Log("Not implemented yet: %s\n",tokens[domain].str);
+        return 0;
     }
   }
   assert(0);
