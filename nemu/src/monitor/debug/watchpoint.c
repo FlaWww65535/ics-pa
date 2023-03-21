@@ -23,6 +23,7 @@ void init_wp_pool() {
 /* TODO: Implement the functionality of watchpoint */
 
 WP* new_wp(char* e){
+  Log("new_wp\n");
   WP* new = free_;
   if(new==NULL){
     Log("You can set %d Watchpoints at most\n",NR_WP);
