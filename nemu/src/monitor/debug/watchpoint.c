@@ -29,8 +29,9 @@ WP* new_wp(char* e){
     Log("You can set %d Watchpoints at most\n",NR_WP);
     assert(0);
   }
-  memcpy(new->expr,e,strlen(e));
   Log("%s",e);
+  memcpy(new->expr,e,strlen(e));
+  
   return NULL;
   bool success = true;
   new->val = expr(e,&success);
