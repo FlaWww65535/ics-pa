@@ -37,10 +37,10 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
-
 static int cmd_si(char *args);
-
 static int cmd_info(char *args);
+static int cmd_x(char *args);
+
 
 static struct {
   char *name;
@@ -51,7 +51,8 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Execute instructions(default as 1)", cmd_si },
-  {"info","info [SUBCMD]--Print info",cmd_info},
+  { "info", "info [SUBCMD]--Print info",cmd_info},
+  { "x", "Examine a section of memory and print"},
 
   /* TODO: Add more commands */
 
@@ -106,7 +107,7 @@ static int cmd_info(char *args){
   char *arg = strtok(NULL, " ");
 
   if (arg == NULL) {
-    printf("Info requires an argument");
+    printf("Info requires an argument\n");
   }
   else {
       if (strcmp(arg,"r") == 0) {
@@ -117,6 +118,38 @@ static int cmd_info(char *args){
         }
       }else if(strcmp(arg,"w") == 0){
         //info w
+      }else{
+        printf("Invalid input '%s'\n",arg);
+      }
+  }
+  return 0;
+}
+
+static int cmd_x(char* args){
+  char *arg = strtok(NULL, " ");
+  
+  if (arg == NULL) {
+    printf("Require arguments -- x [num] [start_addr]\n");
+  }
+  else {
+      for (int i = 0; i < strlen(arg); i++) {
+          if(!isdigit(arg[i]))
+          {
+            printf("Invalid input '%s'\n", arg);
+            return 0;
+          }
+      }
+      int num = atoi(arg);
+      arg = strtok(NULL," ");
+      if (arg == NULL) {
+        printf("Require arguments -- x [num] [start_addr]\n");
+        return 0;
+      }
+      char* s;
+      if (sscanf(arg,"0x%x",s)) {
+        //w [num] [addr]
+        int addr = atoi(s);
+        printf("addr = %d\n",addr);
       }else{
         printf("Invalid input '%s'\n",arg);
       }
