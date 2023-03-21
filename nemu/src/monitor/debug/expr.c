@@ -174,7 +174,7 @@ int eval(int p,int q){
     if(level>=2){
       switch(tokens[p].type){
         case TK_DEREF:
-          Log("Deref\n");
+          //Log("Deref\n");
           return vaddr_read(eval(p+1,q),4);
       }
     }
