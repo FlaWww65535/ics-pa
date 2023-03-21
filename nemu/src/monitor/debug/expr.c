@@ -29,9 +29,9 @@ static struct rule {
    */
 
   {" +",    TK_NOTYPE,0},       // spaces
-  {"\\b[0-9]+\\b",TK_INT,0},    //INTEGER
-  {"\\b0(X|x)[0-9a-fA-F]+\\b",TK_HEX,0},//HEX NUMBER
   {"\\b\\$[a-zA-Z]+\\b",TK_REG,0},//REGISTER
+  {"\\b0(X|x)[0-9a-fA-F]+\\b",TK_HEX,0},//HEX NUMBER
+  {"\\b[0-9]+\\b",TK_INT,0},    //INTEGER
   {"==",    TK_EQ,  4},         // equal
   {"!=",    TK_NEQ, 4},         // not-equal
   {"\\+",   '+',    3},         // plus
