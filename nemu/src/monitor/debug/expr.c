@@ -202,7 +202,7 @@ int eval(int p,int q){
       if(lvl>=3&&lvl>=level){
         domain  = i;
         level   = lvl;
-        Log("Update domain as %d",i);
+        //Log("Update domain as %d",i);
       }
     }
 
@@ -253,7 +253,7 @@ uint32_t expr(char *e, bool *success) {
        tokens[i].type = TK_UNARY_NEG;
        tokens[i].level=2;
     }
-    Log("token %d type %d\n",i,tokens[i].level);
+    //Log("token %d type %d\n",i,tokens[i].level);
   }
 
   return eval(0,nr_token-1);
