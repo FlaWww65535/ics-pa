@@ -171,7 +171,7 @@ static int cmd_p(char *args){
     bool success = true;
     int val = expr(arg,&success);
     if(success){
-      printf("hex:%x\toct:%d\n",val,val);
+      printf("\toct:%d\thex:%x\n",val,val);
     }
     else{
       printf("Invalid input '%s'\n",arg);
