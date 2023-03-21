@@ -7,9 +7,10 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,
-  TK_NEQ,TK_INT,TK_DEREF,
-  TK_UNARY,
+  TK_NOTYPE = 256, 
+  TK_EQ,TK_NEQ,
+  TK_INT,TK_HEX,TK_REG,
+  TK_DEREF,TK_UNARY,
 
   /* TODO: Add more token types */
 
@@ -28,6 +29,8 @@ static struct rule {
 
   {" +",    TK_NOTYPE,0},       // spaces
   {"\\b[0-9]+\\b",TK_INT,0},    //INTEGER
+  {"\\b0(X|x)[0-9a-fA-F]+\\b",TK_HEX,0},//HEX NUMBER
+  {"\\b$[a-zA-Z]+\\b",TK_REG,0},//REGISTER
   {"==",    TK_EQ,  4},         // equal
   {"!=",    TK_NEQ, 4},         // not-equal
   {"\\+",   '+',    3},         // plus
@@ -139,6 +142,26 @@ int eval(int p,int q){
     return 0;
   }else if(p==q){
       //TODO register pointor
+    switch(tokens[p].type){
+    case TK_INT:
+      return atoi(tokens[p].str);
+    case TK_HEX:
+    {
+      int addr;
+      sscanf(tokens[p].str,"%x",&addr );
+      return addr;
+    }
+    case TK_REG:
+      if(strcmp(tokens[p].str+1,"eip") == 0){
+        return cpu.eip;
+      }
+      for(int i=0;i<8;i++){
+        if(strcmp(tokens[p].str+1,reg_name(i,4)) == 0){
+          return reg_l(i);
+        }
+      }
+    }
+
     return atoi(tokens[p].str);
 
   }else if(check_parentheses(p,q)==true){
@@ -195,6 +218,10 @@ uint32_t expr(char *e, bool *success) {
     return 0;
   }
   for (int i = 0; i < nr_token; i ++) {
+    if(tokens[i].type==TK_REG){
+      strlwr(tokens[i].str);
+    }
+
     if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].level>0) ) {
       tokens[i].type = TK_DEREF;
     }
