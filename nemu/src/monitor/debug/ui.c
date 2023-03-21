@@ -48,7 +48,7 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si", "Single Instruction", cmd_si },
+  { "si", "Execute instructions(default as 1)", cmd_si },
 
   /* TODO: Add more commands */
 
@@ -88,8 +88,8 @@ static int cmd_si(char *args){
   }
   else {
       if(isdigit(arg)){
-        i = atoi(arg);
-        cpu_exec(i);
+        int k = atoi(arg);
+        cpu_exec(k);
       }
     printf("Invalid input '%s'\n", arg);
   }
