@@ -111,9 +111,9 @@ static int cmd_info(char *args){
   else {
       if (strcmp(arg,"r") == 0) {
         //info r
-        printf("%-10s%-08x\n","eip",cpu.eip);
+        printf("%-10s0x%-08x\n","eip",cpu.eip);
         for(int i=0;i<8;i++){
-          printf("%-10s%-08x\n",reg_name(i,4),cpu.gpr[i]);
+          printf("%-10s0x%-08x\n",reg_name(i,4),cpu.gpr[i]);
         }
       }else if(strcmp(arg,"w") == 0){
         //info w
