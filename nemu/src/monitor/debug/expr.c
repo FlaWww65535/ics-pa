@@ -176,6 +176,8 @@ int eval(int p,int q){
         case TK_DEREF:
           //Log("Deref\n");
           return vaddr_read(eval(p+1,q),4);
+        case TK_UNARY:
+          return -eval(p+1,q);
       }
     }
 
