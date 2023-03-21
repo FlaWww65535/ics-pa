@@ -53,6 +53,7 @@ void free_wp(int wp_no){
   for(WP* it = head; it; it= it->next){
     if(it->next!=NULL && it->next->NO == wp_no){
       WP* wp=it->next;
+      printf("Delete ");
       print_wp(wp);
       it->next =wp->next;
       wp->next=free_;
