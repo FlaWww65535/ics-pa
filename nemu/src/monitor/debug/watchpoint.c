@@ -44,6 +44,7 @@ WP* new_wp(char* e){
 void free_wp(int wp_no){
   if(head!=NULL && head->NO == wp_no){
       WP* wp=head;
+      printf("Delete ");
       print_wp(wp);
       head =wp->next;
       wp->next=free_;
