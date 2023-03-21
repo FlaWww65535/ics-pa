@@ -139,7 +139,6 @@ static int cmd_x(char* args){
             return 0;
           }
       }
-      return 0; 
       int num = atoi(arg);
       arg = strtok(NULL," ");
       if (arg == NULL) {
