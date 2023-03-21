@@ -171,7 +171,7 @@ int eval(int p,int q){
 
     int domain=p;
     int level =tokens[p].level;
-    if(level>=3){
+    if(level==2){
       switch(tokens[p].type){
         case TK_DEREF:
           //Log("Deref\n");
