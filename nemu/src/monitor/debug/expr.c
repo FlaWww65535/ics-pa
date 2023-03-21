@@ -192,6 +192,7 @@ int eval(int p,int q){
       if(lvl>=3&&lvl>=level){
         domain  = i;
         level   = lvl;
+        Log("Update domain as %d",i);
       }
     }
 
@@ -231,11 +232,11 @@ uint32_t expr(char *e, bool *success) {
 
     if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].level>0) ) {
       tokens[i].type = TK_DEREF;
-      tokens[i].level=0;
+      tokens[i].level=2;
     }
     if (tokens[i].type == '-' && (i == 0 || tokens[i - 1].level>0) ) {
        tokens[i].type = TK_UNARY;
-       tokens[i].level=0;
+       tokens[i].level=2;
     }
     Log("token %d type %d\n",i,tokens[i].level);
   }
