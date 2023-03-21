@@ -5,7 +5,7 @@
  */
 #include <sys/types.h>
 #include <regex.h>
-#include<string.h>
+#include<ctype.h>
 
 enum {
   TK_NOTYPE = 256, 
@@ -220,7 +220,9 @@ uint32_t expr(char *e, bool *success) {
   }
   for (int i = 0; i < nr_token; i ++) {
     if(tokens[i].type==TK_REG){
-      strlwr(tokens[i].str);
+      for(int k=0;k<strlen(tokens[i].str);k++){
+        tokens[i].str[k]=tolower(tokens[i].str[k]);
+      }
     }
 
     if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].level>0) ) {
