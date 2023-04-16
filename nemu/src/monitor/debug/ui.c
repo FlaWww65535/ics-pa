@@ -112,7 +112,7 @@ static int cmd_info(char *args){
   char *arg = strtok(NULL, " ");
 
   if (arg == NULL) {
-    printf("Info requires an argument: \nr: registers\tw: watchpoints\n");
+    printf("Info requires an argument: \ninfo r: registers\tinfo w: watchpoints\n");
   }
   else {
       if (strcmp(arg,"r") == 0) {
