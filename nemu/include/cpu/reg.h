@@ -24,7 +24,6 @@ typedef struct {
         uint8_t _8[2];
       } gpr[8];//general-purpose registers
       struct{
-        uint16_t _unuse;
         union{
           struct{
           uint8_t _x0   :4;
@@ -40,6 +39,7 @@ typedef struct {
           };
           uint16_t flags;
         };
+        uint16_t _unuse;
       };//
     };
     /* Do NOT change the order of the GPRs' definitions. */
