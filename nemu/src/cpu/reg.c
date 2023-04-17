@@ -10,7 +10,7 @@ const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};
 
 void reg_test() {
   srand(time(0));
-  uint32_t sample[8];
+  uint32_t sample[9];
   uint32_t eip_sample = rand();
   cpu.eip = eip_sample;
 
@@ -20,6 +20,9 @@ void reg_test() {
     reg_l(i) = sample[i];
     assert(reg_w(i) == (sample[i] & 0xffff));
   }
+  sample[R_EFLAGS]=rand();
+  cpu.eflags=sample[R_EFLAGS];
+  assert(cpu.flags==sample[R_EFLAGS]& 0xffff);
 
   assert(reg_b(R_AL) == (sample[R_EAX] & 0xff));
   assert(reg_b(R_AH) == ((sample[R_EAX] >> 8) & 0xff));
@@ -30,6 +33,12 @@ void reg_test() {
   assert(reg_b(R_DL) == (sample[R_EDX] & 0xff));
   assert(reg_b(R_DH) == ((sample[R_EDX] >> 8) & 0xff));
 
+  assert(cpu.OF == (sample[R_EFLAGS]&(1<<11)));
+  assert(cpu.IF == (sample[R_EFLAGS]&(1<<9)));
+  assert(cpu.SF == (sample[R_EFLAGS]&(1<<7)));
+  assert(cpu.ZF == (sample[R_EFLAGS]&(1<<6)));
+  assert(cpu.CF == (sample[R_EFLAGS]&(1<<0)));
+
   assert(sample[R_EAX] == cpu.eax);
   assert(sample[R_ECX] == cpu.ecx);
   assert(sample[R_EDX] == cpu.edx);
@@ -38,6 +47,8 @@ void reg_test() {
   assert(sample[R_EBP] == cpu.ebp);
   assert(sample[R_ESI] == cpu.esi);
   assert(sample[R_EDI] == cpu.edi);
+  assert(sample[R_EFLAGS]==cpu.eflags);
+  
 
   assert(eip_sample == cpu.eip);
 }
