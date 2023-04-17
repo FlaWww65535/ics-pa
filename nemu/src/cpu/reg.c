@@ -35,7 +35,7 @@ void reg_test() {
   assert(reg_b(R_DL) == (sample[R_EDX] & 0xff));
   assert(reg_b(R_DH) == ((sample[R_EDX] >> 8) & 0xff));
 
-  // assert(cpu.OF == (sample[R_EFLAGS]&(1<<11)));
+  assert(cpu.OF == (sample[R_EFLAGS]&(1<<11)));
   // assert(cpu.IF == (sample[R_EFLAGS]&(1<<9)));
   // assert(cpu.SF == (sample[R_EFLAGS]&(1<<7)));
   // assert(cpu.ZF == (sample[R_EFLAGS]&(1<<6)));
