@@ -26,16 +26,16 @@ typedef struct {
       struct{
         union{
           struct{
-          uint8_t _x0   :4;
-          uint8_t OF    :1;
-          uint8_t _x1   :1;
-          uint8_t IF    :1;
-          uint8_t _x2   :1;
-          uint8_t SF    :1;
-          uint8_t ZF    :1;
-          uint8_t _x3   :4;
-          uint8_t always_1 :1;
-          uint8_t CF    :1;
+            uint8_t CF    :1;
+            uint8_t always_1 :1;
+            uint8_t _x0   :4;
+            uint8_t ZF    :1;
+            uint8_t SF    :1;
+            uint8_t _x1   :1;
+            uint8_t IF    :1;
+            uint8_t _x2   :1;
+            uint8_t OF    :1;
+            uint8_t _x3   :4;
           };
           uint16_t flags;
         };
