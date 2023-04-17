@@ -38,7 +38,7 @@ typedef struct {
         uint8_t CF    :1;
         };
         uint16_t flags;
-      }
+      };
     };//
     /* Do NOT change the order of the GPRs' definitions. */
 
