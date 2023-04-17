@@ -23,9 +23,7 @@ void reg_test() {
   sample[R_EFLAGS]=rand();
   cpu.eflags=sample[R_EFLAGS];
   assert(cpu.eflags == sample[R_EFLAGS]);
-  char s[40];
-  itoa(cpu.flags,s,2);
-  printf("flags=%s OF=%x",s,cpu.OF);
+  printf("flags=%x OF=%x",cpu.flags,cpu.OF);
   assert(cpu.flags==(sample[R_EFLAGS]& 0xffff));
 
   assert(reg_b(R_AL) == (sample[R_EAX] & 0xff));
