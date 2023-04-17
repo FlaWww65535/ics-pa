@@ -17,29 +17,31 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
 typedef struct {
   
   union{
-    union {
-      uint32_t _32;
-      uint16_t _16;
-      uint8_t _8[2];
-    } gpr[8];//general-purpose registers
     struct{
-      uint16_t _unuse;
-      union{
-        struct{
-        uint8_t _x0   :4;
-        uint8_t OF    :1;
-        uint8_t _x1   :1;
-        uint8_t IF    :1;
-        uint8_t _x2   :1;
-        uint8_t SF    :1;
-        uint8_t ZF    :1;
-        uint8_t _x3   :4;
-        uint8_t always_1 :1;
-        uint8_t CF    :1;
+      union {
+        uint32_t _32;
+        uint16_t _16;
+        uint8_t _8[2];
+      } gpr[8];//general-purpose registers
+      struct{
+        uint16_t _unuse;
+        union{
+          struct{
+          uint8_t _x0   :4;
+          uint8_t OF    :1;
+          uint8_t _x1   :1;
+          uint8_t IF    :1;
+          uint8_t _x2   :1;
+          uint8_t SF    :1;
+          uint8_t ZF    :1;
+          uint8_t _x3   :4;
+          uint8_t always_1 :1;
+          uint8_t CF    :1;
+          };
+          uint16_t flags;
         };
-        uint16_t flags;
-      };
-    };//
+      };//
+    };
     /* Do NOT change the order of the GPRs' definitions. */
 
     /* In NEMU, rtlreg_t is exactly uint32_t. This makes RTL instructions
