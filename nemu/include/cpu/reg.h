@@ -3,8 +3,8 @@
 
 #include "common.h"
 
-enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
-enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
+enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI, R_EFLAGS};
+enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI ,R_FLAGS};
 enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
 
 /* TODO: Re-organize the `CPU_state' structure to match the register
@@ -17,11 +17,28 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
 typedef struct {
   
   union{
-    union {
-      uint32_t _32;
-      uint16_t _16;
-      uint8_t _8[2];
-    } gpr[8];
+    struct{
+      struct{
+        union {
+          uint32_t _32;
+          uint16_t _16;
+          uint8_t _8[2];
+        } gpr[8];
+      };
+      struct{
+        uint16_t _unuse;
+        uint8_t _x0   :4;
+        uint8_t OF    :1;
+        uint8_t _x1   :1;
+        uint8_t IF    :1;
+        uint8_t _x2   :1;
+        uint8_t SF    :1;
+        uint8_t ZF    :1;
+        uint8_t _x3   :4;
+        uint8_t always_1 :1;
+        uint8_t CF    :1;
+      };
+    };
 
     /* Do NOT change the order of the GPRs' definitions. */
 
@@ -29,7 +46,7 @@ typedef struct {
     * in PA2 able to directly access these registers.
     */
     struct{
-      rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+      rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi,eflags;
     };
   };
 
