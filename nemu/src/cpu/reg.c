@@ -35,11 +35,11 @@ void reg_test() {
   assert(reg_b(R_DL) == (sample[R_EDX] & 0xff));
   assert(reg_b(R_DH) == ((sample[R_EDX] >> 8) & 0xff));
 
-  // assert((cpu.OF<<11) == (sample[R_EFLAGS]&(1<<11)));
-  // assert((cpu.IF<<9) == (sample[R_EFLAGS]&(1<<9)));
-  // assert((cpu.SF<<7) == (sample[R_EFLAGS]&(1<<7)));
-  // assert((cpu.ZF<<6) == (sample[R_EFLAGS]&(1<<6)));
-  // assert((cpu.CF<<0) == (sample[R_EFLAGS]&(1<<0)));
+  assert((cpu.OF<<11) == (sample[R_EFLAGS]&(1<<11)));
+  assert((cpu.IF<<9) == (sample[R_EFLAGS]&(1<<9)));
+  assert((cpu.SF<<7) == (sample[R_EFLAGS]&(1<<7)));
+  assert((cpu.ZF<<6) == (sample[R_EFLAGS]&(1<<6)));
+  assert((cpu.CF<<0) == (sample[R_EFLAGS]&(1<<0)));
 
   assert(sample[R_EAX] == cpu.eax);
   assert(sample[R_ECX] == cpu.ecx);
