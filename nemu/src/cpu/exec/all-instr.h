@@ -4,6 +4,8 @@ make_EHelper(mov);
 make_EHelper(movzx);
 make_EHelper(push);
 make_EHelper(pop);
+make_EHelper(cwtl);
+make_EHelper(cltd);
 //system
 make_EHelper(in);
 make_EHelper(out);
