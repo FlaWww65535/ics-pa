@@ -43,7 +43,7 @@ static inline make_DopHelper(SI) {
   rtl_li(&op->val, op->simm);
 
 #ifdef DEBUG
-  snprintf(op->str, OP_STR_SIZE, "$0x%x", op->simm);
+  snprintf(op->str, OP_STR_SIZE, "test$0x%x", op->simm);
 #endif
 }
 
@@ -251,7 +251,7 @@ make_DHelper(Ib_G2E) {
 }
 
 make_DHelper(O2a) {
-  decode_op_O(eip, id_src, true);
+  decode_opz_O(eip, id_src, true);
   decode_op_a(eip, id_dest, false);
 }
 
