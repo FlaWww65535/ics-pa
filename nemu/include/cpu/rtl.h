@@ -145,7 +145,7 @@ static inline void rtl_push(const rtlreg_t* src1) {
   // M[esp] <- src1
   rtl_subi(&cpu.esp,&cpu.esp,4);
   vaddr_write(cpu.esp,4,*src1);
-  printf("id_dest:%d",*src1);
+  printf("id_dest:%d",src1);
 }
 
 static inline void rtl_pop(rtlreg_t* dest) {
