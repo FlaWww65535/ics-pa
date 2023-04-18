@@ -215,7 +215,7 @@ static inline void rtl_update_SF(const rtlreg_t* result, int width) {
     sign_mask<<=8;
   }
   sign_mask>>=1;
-  int32_t val = *result;
+  uint32_t val = *result;
   val&=mask;
   cpu.SF=(val&sign_mask);
 }
