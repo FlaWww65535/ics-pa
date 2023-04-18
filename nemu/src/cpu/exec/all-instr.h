@@ -29,7 +29,11 @@ make_EHelper(test);
 make_EHelper(inc);
 make_EHelper(dec);
 make_EHelper(neg);
-
+make_EHelper(idiv);
+make_EHelper(div);
+make_EHelper(imul);
+make_EHelper(mul);
+make_EHelper(not);
 
 make_EHelper(lea);
 
