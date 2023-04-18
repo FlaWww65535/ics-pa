@@ -31,7 +31,7 @@ make_EHelper(dec);
 make_EHelper(neg);
 make_EHelper(idiv);
 make_EHelper(div);
-make_EHelper(imul);
+make_EHelper(imul1);
 make_EHelper(mul);
 make_EHelper(not);
 
