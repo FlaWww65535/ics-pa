@@ -6,6 +6,7 @@ make_EHelper(push);
 //control
 make_EHelper(call);
 make_EHelper(ret);
+make_EHelper(jcc);
 
 //arith/logic
 make_EHelper(add);
