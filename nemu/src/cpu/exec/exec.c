@@ -26,6 +26,7 @@ static inline void idex(vaddr_t *eip, opcode_entry *e) {
   assert(e!=0);
   if (e->decode)
     e->decode(eip);
+  assert(e->execute!=0);
   e->execute(eip);
 
 }
