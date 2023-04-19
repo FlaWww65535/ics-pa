@@ -34,6 +34,7 @@ void* add_mmio_map(paddr_t addr, int len, mmio_callback_t callback) {
 
 /* bus interface */
 int is_mmio(paddr_t addr) {
+  /*test*/
   int i;
   for (i = 0; i < nr_map; i ++) {
     if (addr >= maps[i].low && addr <= maps[i].high) {
