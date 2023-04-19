@@ -2,7 +2,7 @@
 
 make_EHelper(test) {
   rtl_and(&t2, &id_dest->val, &id_src->val);
-  printf("t2%d\n",t2);
+
   rtl_update_ZFSF(&t2, id_dest->width);
 
   rtl_set_CF(&tzero);
