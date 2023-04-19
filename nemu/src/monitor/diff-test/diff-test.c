@@ -85,7 +85,7 @@ void init_difftest(void) {
     }
 
     close(STDIN_FILENO);
-    execlp("ls", "ls", "-a", NULL);
+    execlp("echo", "echo", "$NEMU_HOME", NULL);
     perror("exec");
     panic("exec error");
   }
