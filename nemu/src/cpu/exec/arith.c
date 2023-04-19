@@ -45,6 +45,9 @@ make_EHelper(sub) {
 make_EHelper(cmp) {
   rtl_sub(&t2, &id_dest->val, &id_src->val);
   rtl_sltu(&t3, &id_dest->val, &t2);
+  printf("dest:%d",id_dest->val);
+  printf("src:%d",id_src->val);
+  printf("res:%d\n",t2);
 
   rtl_update_ZFSF(&t2, id_dest->width);
 
@@ -56,6 +59,7 @@ make_EHelper(cmp) {
   rtl_xor(&t1, &id_dest->val, &t2);
   rtl_and(&t0, &t0, &t1);
   rtl_msb(&t0, &t0, id_dest->width);
+  printf("of%d\n",t0);
   rtl_set_OF(&t0);
 
 
