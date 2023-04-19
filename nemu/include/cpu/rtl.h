@@ -168,6 +168,7 @@ static inline void rtl_pop(rtlreg_t* dest) {
   uint32_t src = vaddr_read(cpu.esp,4);
   printf("%x",src);
   rtl_mv(dest,&src);
+  printf("%x",*dest);
   rtl_addi(&cpu.esp,&cpu.esp,4);
 }
 
