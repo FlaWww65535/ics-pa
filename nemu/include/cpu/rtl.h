@@ -199,13 +199,8 @@ static inline void rtl_neq0(rtlreg_t* dest, const rtlreg_t* src1) {
 
 static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
-  uint32_t mask = 0;
-  for (int  i=0;i<width;i++){
-    mask<<=8;
-    mask|=0xff;
-  }
-  uint32_t val = *src1;
-  val&=mask;
+  uint32_t mask=1<<(width*8-1);
+  uint32_t val = (mask&(*src1)!=0);
   rtl_mv(dest,&val);
 }
 
