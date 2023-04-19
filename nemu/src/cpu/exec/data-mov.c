@@ -6,7 +6,9 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-  
+  if(id_src->type==OP_TYPE_IMM && id_src->width==1){
+    rtl_sext(&t2,&id_src->val,1);
+  }
   rtl_push(&id_dest->val);
   //printf("%d",*id_dest);
 
