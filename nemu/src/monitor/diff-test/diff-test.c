@@ -83,7 +83,7 @@ void init_difftest(void) {
     if (getppid() != ppid_before_fork) {
       panic("parent has died!");
     }
-
+    printf("test");
     close(STDIN_FILENO);
     execlp("qemu-system-i386", "qemu-system-i386", "-S", "-s", "-nographic", NULL);
     perror("exec");
@@ -91,7 +91,7 @@ void init_difftest(void) {
   }
   else {
     // father
-    return ;
+
     gdb_connect_qemu();
     Log("Connect to QEMU successfully");
 
