@@ -45,9 +45,9 @@ make_EHelper(sub) {
 make_EHelper(cmp) {
   rtl_sub(&t2, &id_dest->val, &id_src->val);
   rtl_sltu(&t3, &id_dest->val, &t2);
-  //printf("dest:%d",id_dest->val);
-  //printf("src:%d",id_src->val);
-  //printf("res:%d\n",t2);
+  printf("dest:%d",id_dest->val);
+  printf("src:%d",id_src->val);
+  printf("res:%d\n",t2);
 
   rtl_msb(&t1,&t2,id_dest->width);
 
