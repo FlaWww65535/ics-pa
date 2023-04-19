@@ -54,6 +54,7 @@ make_EHelper(cltd) {
 
 make_EHelper(cwtl) {
   if (decoding.is_operand_size_16) {
+    printf("test");
     rtl_sext(&t2,reg_b(R_AL),1);
     return;
     rtl_msb(&t2, &t2,2);
