@@ -65,9 +65,7 @@ static uint8_t mbr[] = {
 
 void init_difftest(void) {
   int ppid_before_fork = getpid();
-  
   int pid = fork();
-  return;
   if (pid == -1) {
     perror("fork");
     panic("fork error");
@@ -85,6 +83,7 @@ void init_difftest(void) {
     if (getppid() != ppid_before_fork) {
       panic("parent has died!");
     }
+    printf("test");
     close(STDIN_FILENO);
     execlp("qemu-system-i386", "qemu-system-i386", "-S", "-s", "-nographic", NULL);
     perror("exec");
