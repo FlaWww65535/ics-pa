@@ -20,6 +20,7 @@ make_EHelper(and) {
   printf("test3");
   rtl_set_CF(&tzero);
   rtl_set_OF(&tzero);
+  printf("test");
   print_asm_template2(and);
 }
 
