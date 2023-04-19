@@ -1,7 +1,7 @@
 #include "cpu/exec.h"
 #include "all-instr.h"
 
-
+extern uint32_t si_cnt;
 typedef struct {
   DHelper decode;
   EHelper execute;
