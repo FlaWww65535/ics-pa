@@ -161,10 +161,11 @@ void difftest_step(uint32_t eip) {
     diff=1;
   }
   if (diff) {
-    nemu_state = NEMU_END;
+    //nemu_state = NEMU_END;
 
     printf("DIFF OCCURS\neip: %08x\n",cpu.eip);
     printf("Inst count:%d\n",cpu.inst_cnt);
     printf("eflag state:\nqemu:%08x\tnemu:%08x\n",r.eflags,cpu.eflags);
+    diff=0;
   }
 }
