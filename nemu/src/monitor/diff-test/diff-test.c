@@ -7,7 +7,6 @@
 #include "protocol.h"
 #include <stdlib.h>
 
-extern uint32_t si_cnt;
 
 
 bool gdb_connect_qemu(void);
@@ -165,7 +164,7 @@ void difftest_step(uint32_t eip) {
     nemu_state = NEMU_END;
 
     printf("DIFF OCCURS\neip: %08x\n",cpu.eip);
-    printf("Inst count:%d\n",si_cnt);
+    printf("Inst count:%d\n",cpu.inst_cnt);
     printf("eflag state:\nqemu:%08x\tnemu:%08x\n",r.eflags,cpu.eflags);
   }
 }

@@ -53,6 +53,7 @@ typedef struct {
   };
 
   vaddr_t eip;
+  uint32_t inst_cnt;
 
 } CPU_state;
 

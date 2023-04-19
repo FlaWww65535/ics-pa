@@ -1,7 +1,6 @@
 #include "cpu/exec.h"
 #include "all-instr.h"
 
-extern uint32_t si_cnt;
 typedef struct {
   DHelper decode;
   EHelper execute;
@@ -232,7 +231,7 @@ void exec_wrapper(bool print_flag) {
 
   decoding.seq_eip = cpu.eip;
   exec_real(&decoding.seq_eip);
-  si_cnt+=1;
+  cpu.inst_cnt++;
 
 #ifdef DEBUG
   int instr_len = decoding.seq_eip - cpu.eip;
