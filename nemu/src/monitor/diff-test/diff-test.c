@@ -85,7 +85,7 @@ void init_difftest(void) {
     }
 
     close(STDIN_FILENO);
-    //execlp("ls", "ls",NULL);
+    execlp("ls", "ls",NULL);
     perror("exec");
     panic("exec error");
   }
