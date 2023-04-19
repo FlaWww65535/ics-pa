@@ -45,7 +45,7 @@ void free_wp(int wp_no){
   if(head!=NULL && head->NO == wp_no){
       WP* wp=head;
       print_wp(wp);
-      printf("has deleted");
+      printf("has deleted\n");
       head =wp->next;
       wp->next=free_;
       free_ =wp;
@@ -55,7 +55,7 @@ void free_wp(int wp_no){
     if(it->next!=NULL && it->next->NO == wp_no){
       WP* wp=it->next;
       print_wp(wp);
-      printf("has deleted");
+      printf("has deleted\n");
       it->next =wp->next;
       wp->next=free_;
       free_ =wp;
