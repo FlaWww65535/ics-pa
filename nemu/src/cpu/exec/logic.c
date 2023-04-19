@@ -15,12 +15,10 @@ make_EHelper(and) {
   assert(id_dest!=0&&id_src!=0);
   rtl_and(&t2, &id_dest->val, &id_src->val);
   operand_write(id_dest, &t2);
-  printf("test2");
   rtl_update_ZFSF(&t2, id_dest->width);
-  printf("test3");
   rtl_set_CF(&tzero);
   rtl_set_OF(&tzero);
-  printf("test");
+  printf("test2");
   print_asm_template2(and);
 }
 
