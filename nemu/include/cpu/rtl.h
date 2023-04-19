@@ -199,12 +199,9 @@ static inline void rtl_neq0(rtlreg_t* dest, const rtlreg_t* src1) {
 
 static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
-  printf("before%x\n",*dest);
   uint32_t mask=1<<(width*8-1);
-  printf("mask%x\n",mask);
   uint32_t val = (mask&*src1)!=0;
   rtl_mv(dest,&val);
-  printf("after%x\n",*dest);
 }
 
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
