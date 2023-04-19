@@ -174,8 +174,8 @@ static inline void rtl_pop(rtlreg_t* dest) {
 
 static inline void rtl_eq0(rtlreg_t* dest, const rtlreg_t* src1) {
   // dest <- (src1 == 0 ? 1 : 0)
-  rtl_sltu(&t2,&tzero,*src1);
-  rtl_sltu(&t3,*src1,&tzero);
+  rtl_sltu(&t2,&tzero,src1);
+  rtl_sltu(&t3,src1,&tzero);
   rtl_or(&t2,&t2,&t3);
   rtl_not(&t2);
   rtl_mv(dest,&t2);
