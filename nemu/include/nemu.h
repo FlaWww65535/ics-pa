@@ -5,4 +5,6 @@
 #include "memory/memory.h"
 #include "cpu/reg.h"
 
+extern uint32_t si_cnt;
+
 #endif
