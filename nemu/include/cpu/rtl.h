@@ -232,7 +232,7 @@ static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   sign_mask>>=1;
   uint32_t val = *result;
   val&=mask;
-  cpu.SF=(val&sign_mask);
+  cpu.SF=(val&sign_mask)!=0;
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {
