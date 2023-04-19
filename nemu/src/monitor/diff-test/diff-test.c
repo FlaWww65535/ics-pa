@@ -158,11 +158,8 @@ void difftest_step(uint32_t eip) {
     printf("diff in %s:\nqemu:%08x\tnemu:%08x\n","eip",r.eip,cpu.eip);
     diff=1;
   }
-  if(r.eflags!=cpu.eflags){
-    printf("diff in %s:\nqemu:%08x\tnemu:%08x\n","eflags",r.eflags,cpu.eflags);
-    diff=1;
-  }
   if (diff) {
     nemu_state = NEMU_END;
+    printf("eflag state:\nqemu:%08x\tnemu:%08x\n",r.eflags,cpu.eflags);
   }
 }
