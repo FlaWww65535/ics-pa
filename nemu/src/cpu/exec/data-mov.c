@@ -53,6 +53,7 @@ make_EHelper(cltd) {
 }
 
 make_EHelper(cwtl) {
+  return;
   if (decoding.is_operand_size_16) {
     rtl_sext(&t2,reg_b(R_AL),1);
     rtl_msb(&t2, &t2,2);
