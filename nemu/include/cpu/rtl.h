@@ -202,7 +202,7 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   printf("before%x\n",*dest);
   uint32_t mask=1<<(width*8-1);
   printf("mask%x\n",mask);
-  uint32_t val = (mask&(*src1)!=0);
+  uint32_t val = (mask&*src1)!=0;
   rtl_mv(dest,&val);
   printf("after%x\n",*dest);
 }
