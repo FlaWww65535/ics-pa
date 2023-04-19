@@ -142,7 +142,9 @@ make_DHelper(E2G)
 make_DHelper(mov_E2G)
 {
   decode_op_rm(eip, id_src, true, id_dest, false);
+  printf("decode width:dest %d src %d\n",id_dest->width,id_src->width);
 }
+
 
 make_DHelper(lea_M2G)
 {
