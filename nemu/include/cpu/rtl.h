@@ -132,9 +132,7 @@ static inline void rtl_mv(rtlreg_t* dest, const rtlreg_t *src1) {
 
 static inline void rtl_not(rtlreg_t* dest) {
   // dest <- ~dest
-  printf("before%d\n",*dest);
-  rtl_xori(dest,dest,0xfffffff);
-  printf("after%d\n",*dest);
+  rtl_xori(dest,dest,0xffffffff);
 }
 
 static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
