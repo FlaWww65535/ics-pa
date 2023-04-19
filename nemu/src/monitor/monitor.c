@@ -118,10 +118,10 @@ int init_monitor(int argc, char *argv[]) {
   /* Test the implementation of the `CPU_state' structure. */
   reg_test();
   //printf("test");
-//#ifdef DIFF_TEST
+#ifdef DIFF_TEST
   /* Fork a child process to perform differential testing. */
   init_difftest();
-//#endif
+#endif
 
   /* Load the image to memory. */
   load_img();
