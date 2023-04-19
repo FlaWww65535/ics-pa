@@ -214,7 +214,7 @@ static make_EHelper(2byte_esc) {
 }
 
 make_EHelper(real) {
-  if(cpu.inst_cnt>=26825770)
+  if(cpu.inst_cnt>=26825730)
   {
     printf("check");
   }
