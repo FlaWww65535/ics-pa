@@ -31,6 +31,7 @@ void _draw_rect(const uint32_t *pixels, int x, int y, int w, int h) {
     if(now_x>=x&&now_x<=x+w&&now_y>=y&&now_y<=y+h){
       if(cnt<=w*h)fb[i] = pixels[cnt++];
     }
+    fb[i]=i;
   }
 }
 
