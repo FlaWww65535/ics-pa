@@ -23,9 +23,6 @@ static inline void set_width(int width) {
 /* Instruction Decode and EXecute */
 static inline void idex(vaddr_t *eip, opcode_entry *e) {
   /* eip is pointing to the byte next to opcode */
-  if(eip>0x101200&&eip<0x101209){
-    printf("check");
-  }
   if (e->decode)
     e->decode(eip);
   e->execute(eip);
