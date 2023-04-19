@@ -4,6 +4,8 @@
 #define ENTRY_START 0x100000
 #define EFLAGS_INIT_VALUE 0x00000002
 
+extern uint32_t si_cnt;
+
 void init_difftest();
 void init_regex();
 void init_wp_pool();

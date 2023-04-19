@@ -7,6 +7,9 @@
 #include "protocol.h"
 #include <stdlib.h>
 
+extern uint32_t si_cnt;
+
+
 bool gdb_connect_qemu(void);
 bool gdb_memcpy_to_qemu(uint32_t, void *, int);
 bool gdb_getregs(union gdb_regs *);
