@@ -2,7 +2,7 @@
 #include <klib.h>
 #define FPS 32
 
-unsigned int canvas[32][32]={100};
+unsigned int canvas[32][32]={255};
 
 int main() {
   _ioe_init();
