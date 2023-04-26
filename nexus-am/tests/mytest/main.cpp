@@ -78,7 +78,7 @@ int main() {
   while (true) {
     unsigned long upt = _uptime();
     if (upt - last > 1000 / FPS) {
-      update();
+      //update();
       redraw();
       last = upt;
     }
