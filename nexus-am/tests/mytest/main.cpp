@@ -74,15 +74,15 @@ int main() {
   _ioe_init();
 
   unsigned long last = 0;
-    int t=0;
-    while(t++<100)
+    
+    for(int i=0;i<100;i++)
     {
         update();
     }
-  while (true) {
+while (true) {
     unsigned long upt = _uptime();
     if (upt - last > 1000 / FPS) {
-      //update();
+      
       redraw();
       last = upt;
     }
