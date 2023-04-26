@@ -87,6 +87,5 @@ while (true) {
     }
     if(t>=10000)break;
   }
-  while(1);
   return 0;
 }
