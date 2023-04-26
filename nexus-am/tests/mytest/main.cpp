@@ -74,7 +74,11 @@ int main() {
   _ioe_init();
 
   unsigned long last = 0;
-
+    int t=0;
+    while(t++<100)
+    {
+        update();
+    }
   while (true) {
     unsigned long upt = _uptime();
     if (upt - last > 1000 / FPS) {
