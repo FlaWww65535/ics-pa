@@ -75,18 +75,18 @@ int main() {
 
   unsigned long last = 0;
     
-    for(int i=0;i<100;i++)
-    {
-        update();
-    }
+
+    int t=0;
 while (true) {
+    t++;
     unsigned long upt = _uptime();
     if (upt - last > 1000 / FPS) {
-      
+      update();
       redraw();
       last = upt;
     }
+    if(t>=10000)break;
   }
-
+  while(1);
   return 0;
 }
