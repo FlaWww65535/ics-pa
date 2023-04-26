@@ -25,7 +25,7 @@ void _draw_rect(const uint32_t *pixels, int x, int y, int w, int h) {
   int i;
   int cnt=0;
   for (i = 0; i < _screen.width * _screen.height; i++) {
-    int now_x=i%_screen.width-1;
+    int now_x=i%_screen.width;
     int now_y=i/_screen.width;
     fb[i]=0;
     if(now_x>=x&&now_x<=x+w&&now_y>=y&&now_y<=y+h){
