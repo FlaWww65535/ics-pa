@@ -85,8 +85,6 @@ while (true) {
       redraw();
       last = upt;
     }
-    if(t>=100000)break;
   }
-  while(1);
   return 0;
 }
