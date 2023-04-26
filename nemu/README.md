@@ -23,3 +23,17 @@ The main features of NEMU include
   * most of them are simplified and unprogrammable
 * 2 types of I/O
   * port-mapped I/O and memory-mapped I/O
+graph LR;
+    A[cpu_exec];
+    B[exec_once];
+    C[isa_exec];
+    D[update_pc];
+    E[instr_fetch];
+    F[set_width];
+    G[idex];
+    A-->B;
+    B-->C;
+    B-->D;
+    C-->E;
+    C-->F;
+    C-->G;
