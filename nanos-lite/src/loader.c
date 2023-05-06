@@ -5,8 +5,8 @@
 uintptr_t loader(_Protect *as, const char *filename) {
   
   size_t disk_size = get_ramdisk_size();
-  
-  ramdisk_read(DEFAULT_ENTRY,0,10000);
+  Log("%d",disk_size);
+  ramdisk_read(DEFAULT_ENTRY,0,disk_size);
 
   return (uintptr_t)DEFAULT_ENTRY;
 }
