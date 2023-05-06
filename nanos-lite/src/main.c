@@ -31,6 +31,7 @@ int main() {
   init_fs();
 
   uint32_t entry = loader(NULL, NULL);
+  Log("Load success\n");
   ((void (*)(void))entry)();
 
   panic("Should not reach here");
