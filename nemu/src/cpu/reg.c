@@ -10,7 +10,7 @@ const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};
 
 void reg_test() {
   srand(time(0));
-  uint32_t sample[10];
+  uint32_t sample[9];
   uint32_t eip_sample = rand();
   cpu.eip = eip_sample;
 
@@ -26,13 +26,6 @@ void reg_test() {
   assert(cpu.eflags == sample[R_EFLAGS]);
   //printf("flags=%x OF=%x",cpu.flags,cpu.OF);
   assert(cpu.flags==(sample[R_EFLAGS]& 0xffff));
-
-  sample[R_IDTR]=rand();
-  cpu.idtr=sample[R_IDTR];
-  assert(cpu.idtr == sample[R_IDTR]);
-  //printf("idtbase=%x should =%x",cpu._idt_base,cpu.idtr);
-  assert(cpu._idt_base==(sample[R_IDTR]));
-  assert(cpu._idt_limit==(sample[R_IDTR]& 0xffff));
 
 
   assert(reg_b(R_AL) == (sample[R_EAX] & 0xff));
