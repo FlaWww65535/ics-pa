@@ -9,6 +9,7 @@ make_EHelper(cwtl);
 make_EHelper(cltd);
 //system
 make_EHelper(lidt);
+make_EHelper(int);
 make_EHelper(in);
 make_EHelper(out);
 //control
