@@ -30,7 +30,7 @@ void reg_test() {
   sample[R_IDTR]=rand();
   cpu.idtr=sample[R_IDTR];
   assert(cpu.idtr == sample[R_IDTR]);
-  //printf("flags=%x OF=%x",cpu.flags,cpu.OF);
+  printf("idtbase=%x should =%x",cpu._idt_base,cpu.idtr);
   assert(cpu._idt_base==(sample[R_IDTR]));
   assert(cpu._idt_limit==(sample[R_IDTR]& 0xffff));
 
