@@ -5,6 +5,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * That is, use ``NO'' to index the IDT.
    */
+  printf("NO is %d\n",NO);
   rtl_push(&cpu.eflags);
   rtl_push(&cpu.cs);
   rtl_push(&ret_addr);
