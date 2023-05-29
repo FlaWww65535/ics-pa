@@ -16,6 +16,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 
   decoding.jmp_eip=Gate_hi|Gate_lo;
   decoding.is_jmp=true;
+  assert(0);
 }
 
 void dev_raise_intr() {
