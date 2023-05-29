@@ -5,7 +5,6 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * That is, use ``NO'' to index the IDT.
    */
-  printf("NO is %x eax is %x\n",NO,cpu.eax);
   rtl_push(&cpu.eflags);
   rtl_push(&cpu.cs);
   rtl_push(&ret_addr);
@@ -16,7 +15,6 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 
   decoding.jmp_eip=Gate_hi|Gate_lo;
   decoding.is_jmp=true;
-  assert(0);
 }
 
 void dev_raise_intr() {
