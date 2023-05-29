@@ -43,8 +43,8 @@ typedef struct {
       };//
       uint32_t cs;
       union{
-        uint32_t _idt_limit;
-        uint16_t _idt_base;
+        uint32_t _idt_base;
+        uint16_t _idt_limit;
       };//idtr
     };
     /* Do NOT change the order of the GPRs' definitions. */
