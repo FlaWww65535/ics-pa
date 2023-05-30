@@ -71,7 +71,7 @@ make_EHelper(shr) {
   rtl_mv(&t2,&id_dest->val);
   rtl_mv(&t3,&id_src->val);
   rtl_shr(&t0,&t2,&t3);
-  printf("shr %d to %d",id_src->val,t0);
+  printf("shr %d to %d",id_dest->val,t0);
   operand_write(id_dest,&t0);
   print_asm_template2(shr);
 }
