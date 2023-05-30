@@ -40,6 +40,7 @@ int sys_write(uintptr_t fd, uintptr_t buf, uintptr_t len)
 
 int sys_lseek(uintptr_t fd, uintptr_t offset, uintptr_t whence)
 {
+  Log("_lseek\n");
   return fs_lseek(fd, offset, whence);
 }
 

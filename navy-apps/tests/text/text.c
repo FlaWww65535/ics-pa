@@ -2,10 +2,11 @@
 #include <assert.h>
 
 int main() {
-  printf("text begin\n");
+
   FILE *fp = fopen("/share/texts/num", "r+");
   assert(fp);
-
+  
+  printf("text begin\n");
   fseek(fp, 0, SEEK_END);
   long size = fseek(fp,0,SEEK_CUR);
   printf("size = %d\n",size);
