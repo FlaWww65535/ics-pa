@@ -1,4 +1,5 @@
 #include "fs.h"
+
 typedef struct
 {
   char *name;
@@ -39,7 +40,7 @@ void init_fs()
 
 int fs_open(const char *pathname, int flags, int mode)
 {
-  Log("fs_open\n");
+  //Log("fs_open\n");
   for (int i = 0; i < NR_FILES; i++)
   {
     if (strcmp(file_table[i].name, pathname) == 0)
@@ -53,7 +54,7 @@ int fs_open(const char *pathname, int flags, int mode)
 }
 ssize_t fs_read(int fd, void *buf, size_t len)
 {
-  Log("fs_read\n");
+  //Log("fs_read\n");
   if(fd<=2){return 0;}
   Finfo file = file_table[fd];
   off_t foff = file.disk_offset + file.open_offset;
@@ -66,7 +67,7 @@ ssize_t fs_read(int fd, void *buf, size_t len)
 }
 ssize_t fs_write(int fd, const void *buf, size_t len)
 {
-  Log("fs_write\n");
+  //Log("fs_write\n");
   if(fd==0)return 0;
   if(fd==1||fd==2){
     for (int i = 0; i < len; i++)
@@ -86,7 +87,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len)
 }
 off_t fs_lseek(int fd, off_t offset, int whence)
 {
-  Log("fs_lseek\n");
+  //Log("fs_lseek\n");
   Finfo file = file_table[fd];
   switch (whence)
   {
@@ -108,7 +109,7 @@ off_t fs_lseek(int fd, off_t offset, int whence)
   return file.open_offset;
 }
 int fs_close(int fd){
-  Log("fs_close\n");
+  //Log("fs_close\n");
   return 0;
 }
 size_t fs_filesz(int fd){
