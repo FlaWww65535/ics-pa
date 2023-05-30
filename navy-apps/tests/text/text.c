@@ -8,6 +8,7 @@ int main() {
 
   fseek(fp, 0, SEEK_END);
   long size = fseek(fp,0,SEEK_CUR);
+  printf("size = %d\n",size);
   assert(size == 5000);
 
 
