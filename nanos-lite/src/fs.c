@@ -37,7 +37,7 @@ void init_fs()
 }
 
 
-int fs_open(const char *pathname)
+int fs_open(const char *pathname, int flags, int mode)
 {
   for (int i = 0; i < NR_FILES; i++)
   {
