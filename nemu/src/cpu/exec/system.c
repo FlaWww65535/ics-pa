@@ -42,7 +42,7 @@ make_EHelper(int) {
 
 make_EHelper(iret) {
   rtl_pop(&t2);
-  printf("pop retaddr=%x\n",t2);
+  //printf("pop retaddr=%x\n",t2);
   rtl_pop(&cpu.cs);
   rtl_pop(&cpu.eflags);
   decoding.jmp_eip = t2;
