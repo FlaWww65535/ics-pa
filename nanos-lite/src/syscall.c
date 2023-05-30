@@ -13,7 +13,6 @@ int sys_exit(uintptr_t r)
 
 int sys_write(uintptr_t fd, uintptr_t buf, uintptr_t cnt)
 {
-  printf("sys_write\n");
   switch (fd)
   {
   case 1:
