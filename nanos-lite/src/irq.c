@@ -3,6 +3,7 @@
 static _RegSet* do_event(_Event e, _RegSet* r) {
   switch (e.event) {
     case _EVENT_SYSCALL:
+      printf("do_event\n");
       do_syscall(r);
       break;
 
