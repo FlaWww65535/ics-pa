@@ -15,6 +15,7 @@ _RegSet* do_syscall(_RegSet *r) {
   a[1] = SYSCALL_ARG2(r);
   a[2] = SYSCALL_ARG3(r);
   a[3] = SYSCALL_ARG4(r);
+  printf("a0=%d,a1=%d",a[0],a[1]);
   switch (a[0]) {
     case SYS_none: SYSCALL_ARG1(r)=sys_none(a[0]);
     case SYS_exit: SYSCALL_ARG1(r)=sys_exit(a[1]);
