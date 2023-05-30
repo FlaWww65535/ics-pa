@@ -49,6 +49,7 @@ int _close(int fd) {
 }
 
 off_t _lseek(int fd, off_t offset, int whence) {
+  printf("navy_lseek\n");
   return _syscall_(SYS_close,fd,offset,whence);
 }
 
