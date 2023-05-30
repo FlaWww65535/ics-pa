@@ -25,7 +25,6 @@ int sys_write(uintptr_t fd, uintptr_t buf, uintptr_t cnt)
   default:
     return -1;
   }
-
 }
 
 _RegSet *do_syscall(_RegSet *r)
@@ -35,19 +34,15 @@ _RegSet *do_syscall(_RegSet *r)
   a[1] = SYSCALL_ARG2(r);
   a[2] = SYSCALL_ARG3(r);
   a[3] = SYSCALL_ARG4(r);
-  printf("a0=%d,a1=%d",a[0],a[1]);
   switch (a[0])
   {
   case SYS_none:
-    printf("do_sys_none\n");
     SYSCALL_ARG1(r) = sys_none();
     break;
   case SYS_exit:
-    printf("do_sys_exit\n");
     SYSCALL_ARG1(r) = sys_exit(a[1]);
     break;
   case SYS_write:
-    printf("do_sys_write\n");
     SYSCALL_ARG1(r) = sys_write(a[1], a[2], a[3]);
     break;
   default:
