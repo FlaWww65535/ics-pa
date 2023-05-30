@@ -28,15 +28,14 @@ int _open(const char *path, int flags, mode_t mode) {
 }
 
 int _write(int fd, void *buf, size_t count){
-  Log("_write\n");
-  return _syscall_(SYS_write,fd,buf,count);
+  return _syscall_(SYS_write,fd,(uintptr_t)buf,count);
 }
 
 void *_sbrk(intptr_t increment){
   if(_syscall_(SYS_brk,program_break+increment,0,0)==0){
     int temp = program_break;
     program_break=program_break+increment;
-    return temp;  
+    return (void *)temp;  
   }
   return (void *)-1;
 }
