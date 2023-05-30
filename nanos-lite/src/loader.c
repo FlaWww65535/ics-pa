@@ -3,7 +3,7 @@
 #define DEFAULT_ENTRY ((void *)0x4000000)
 
 uintptr_t loader(_Protect *as, const char *filename) {
-  
+  Log("loader\n");
   size_t disk_size = get_ramdisk_size();
   int fd=fs_open(filename);
   fs_read(fd,DEFAULT_ENTRY,fs_filesz(fd));
