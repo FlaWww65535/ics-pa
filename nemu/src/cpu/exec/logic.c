@@ -63,6 +63,7 @@ make_EHelper(shl) {
   rtl_mv(&t3,&id_src->val);
   rtl_shl(&t0,&t2,&t3);
   operand_write(id_dest,&t0);
+  rtl_update_ZFSF(&t0, id_dest->width);
   print_asm_template2(shl);
 }
 
@@ -71,8 +72,8 @@ make_EHelper(shr) {
   rtl_mv(&t2,&id_dest->val);
   rtl_mv(&t3,&id_src->val);
   rtl_shr(&t0,&t2,&t3);
-  printf("shr %d to %d",id_dest->val,t0);
   operand_write(id_dest,&t0);
+  rtl_update_ZFSF(&t0, id_dest->width);
   print_asm_template2(shr);
 }
 
