@@ -8,6 +8,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   rtl_push(&cpu.eflags);
   rtl_push(&cpu.cs);
   rtl_push(&ret_addr);
+  printf("push retaddr=%x\n",ret_addr);
 
   vaddr_t Gate_addr =cpu.idtr.base+NO*8;
   int32_t Gate_lo = vaddr_read(Gate_addr,4)&0xffff;  
