@@ -50,6 +50,7 @@ _RegSet *do_syscall(_RegSet *r)
   a[1] = SYSCALL_ARG2(r);
   a[2] = SYSCALL_ARG3(r);
   a[3] = SYSCALL_ARG4(r);
+  Log("do_syscall: No %d\n",a[0]);
   switch (a[0])
   {
   case SYS_none:
@@ -58,7 +59,6 @@ _RegSet *do_syscall(_RegSet *r)
   case SYS_exit:
     SYSCALL_ARG1(r) = sys_exit(a[1]);
     break;
-
   case SYS_brk:
     SYSCALL_ARG1(r) = sys_brk(a[1]);
     break;
