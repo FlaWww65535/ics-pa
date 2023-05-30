@@ -87,7 +87,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len)
 }
 off_t fs_lseek(int fd, off_t offset, int whence)
 {
-  //Log("fs_lseek\n");
+  Log("fs_lseek\n");
   Finfo file = file_table[fd];
   switch (whence)
   {
