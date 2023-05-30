@@ -10,6 +10,8 @@
 #ifndef __ISA_NATIVE__
 
 // FIXME: this is temporary
+extern char _end;
+static intptr_t program_break = (intptr_t)&_end;
 
 int _syscall_(int type, uintptr_t a0, uintptr_t a1, uintptr_t a2){
   int ret = -1;
@@ -30,6 +32,11 @@ int _write(int fd, void *buf, size_t count){
 }
 
 void *_sbrk(intptr_t increment){
+  if(_syscall_(SYS_brk,program_break+increment,0,0)==0){
+    int temp = program_break;
+    program_break=program_break+increment;
+    return temp;  
+  }
   return (void *)-1;
 }
 
