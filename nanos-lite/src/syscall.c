@@ -39,13 +39,15 @@ _RegSet *do_syscall(_RegSet *r)
   switch (a[0])
   {
   case SYS_none:
+    printf("do_sys_none\n");
     SYSCALL_ARG1(r) = sys_none();
     break;
   case SYS_exit:
+    printf("do_sys_exit\n");
     SYSCALL_ARG1(r) = sys_exit(a[1]);
     break;
   case SYS_write:
-    printf("do_sys\n");
+    printf("do_sys_write\n");
     SYSCALL_ARG1(r) = sys_write(a[1], a[2], a[3]);
     break;
   default:
