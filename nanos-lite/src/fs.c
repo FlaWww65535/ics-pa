@@ -60,9 +60,9 @@ ssize_t fs_read(int fd, void *buf, size_t len)
     return 0;
   }
   Finfo *file = &file_table[fd];
-  Log("file:%s\n", file->name);
+  // Log("file:%s\n", file->name);
   off_t foff = file->disk_offset + file->open_offset;
-  Log("open_offset:%d\tlen:%d\n", file->open_offset, len);
+  // Log("open_offset:%d\tlen:%d\n", file->open_offset, len);
   int flen = len;
   if (len > (file->size - file->open_offset))
     flen = file->size - file->open_offset; // real file len
@@ -86,14 +86,14 @@ ssize_t fs_write(int fd, const void *buf, size_t len)
   }
   Finfo *file = &file_table[fd];
   off_t foff = file->disk_offset + file->open_offset;
-  Log("open_offset:%d\tlen:%d\n", file->open_offset, len);
+  // Log("open_offset:%d\tlen:%d\n", file->open_offset, len);
   int flen = len;
   if (len > (file->size - file->open_offset))
     flen = file->size - file->open_offset; // real file len
   assert(flen >= 0);
   ramdisk_write(buf, foff, flen);
   file->open_offset += flen;
-  Log("done. open_offset:%d\tflen:%d\n", file->open_offset, flen);
+  // Log("done. open_offset:%d\tflen:%d\n", file->open_offset, flen);
   return flen;
 }
 off_t fs_lseek(int fd, off_t offset, int whence)
@@ -118,7 +118,7 @@ off_t fs_lseek(int fd, off_t offset, int whence)
   {
     panic("lseek offset out of bound:%d\n", file->open_offset);
   }
-  Log("file:%s\topen_offset:%d\n", file->name, file->open_offset);
+  // Log("file:%s\topen_offset:%d\n", file->name, file->open_offset);
   return file->open_offset;
 }
 int fs_close(int fd)
