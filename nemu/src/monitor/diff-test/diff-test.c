@@ -163,20 +163,17 @@ void difftest_step(uint32_t eip)
   // Set `diff` as `true` if they are not the same.
   if (is_qemu_show)
   {
-    for (int i = R_EAX; i <= R_EDI; i++)
+    printf("qemu regs:\n");
+    for (int i = R_EAX; i <= R_EDI; i += 2)
     {
 
-      printf("%s: %08x\n", reg_name(i, 4), r.array[i]);
+      printf("%s: %08x\t%s: %08x\n", reg_name(i, 4), r.array[i], reg_name(i + 1, 4), r.array[i + 1]);
     }
     printf("%s: %08x\n", "eip", r.eip);
   }
 
   for (int i = R_EAX; i <= R_EDI; i++)
   {
-    if (is_qemu_show)
-    {
-      printf("%s: %08x\n", reg_name(i, 4), r.array[i]);
-    }
     if (reg_l(i) != r.array[i])
     {
       printf("diff in %s:\nqemu:%08x\tnemu:%08x\n", reg_name(i, 4), r.array[i], reg_l(i));
