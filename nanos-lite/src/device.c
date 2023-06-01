@@ -23,11 +23,11 @@ size_t events_read(void *buf, size_t len)
   {
     if (key & KEYDOWN_MASK)
     {
-      sprintf(eve, "kd %d\n", keyname[key & 0xfff]);
+      sprintf(eve, "kd %s\n", keyname[key & 0xfff]);
     }
     else
     {
-      sprintf(eve, "ku %d\n", keyname[key & 0xfff]);
+      sprintf(eve, "ku %s\n", keyname[key & 0xfff]);
     }
   }
   memcpy(buf, eve, len);
