@@ -7,9 +7,28 @@ static const char *keyname[256] __attribute__((used)) = {
     [_KEY_NONE] = "NONE",
     _KEYS(NAME)};
 
+#define KEYDOWN_MASK 0x8000
+
 size_t events_read(void *buf, size_t len)
 {
-  return 0;
+  int key = _read_key();
+  if (key == _KEY_NONE)
+  {
+    unsigned long time = _uptime();
+    sprintf(buf, "t %d\n", time);
+  }
+  else
+  {
+    if (key & KEYDOWN_MASK)
+    {
+      sprintf(buf, "kd %d\n", keyname[key & 0xfff]);
+    }
+    else
+    {
+      sprintf(buf, "ku %d\n", keyname[key & 0xfff]);
+    }
+  }
+  return strlen(buf);
 }
 
 static char dispinfo[128] __attribute__((used));
