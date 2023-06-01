@@ -163,19 +163,6 @@ void difftest_step(uint32_t eip)
     gdb_getregs(&r);
     regcpy_from_nemu(r);
     gdb_setregs(&r);
-    if (is_qemu_show)
-      printf("skip: %d\n", is_qemu_show);
-    if (is_qemu_show)
-    {
-      gdb_getregs(&r);
-      printf("qemu regs:\n");
-      for (int i = R_EAX; i <= R_EDI; i += 2)
-      {
-
-        printf("%s: %08x\t%s: %08x\n", reg_name(i, 4), r.array[i], reg_name(i + 1, 4), r.array[i + 1]);
-      }
-      printf("%s: %08x\n", "eip", r.eip);
-    }
     is_skip_qemu = false;
     return;
   }
