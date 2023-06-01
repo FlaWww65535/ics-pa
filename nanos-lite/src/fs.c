@@ -37,39 +37,44 @@ void init_fs()
   // TODO: initialize the size of /dev/fb
 }
 
-
 int fs_open(const char *pathname, int flags, int mode)
 {
-  //Log("fs_open\n");
+  // Log("fs_open\n");
   for (int i = 0; i < NR_FILES; i++)
   {
     if (strcmp(file_table[i].name, pathname) == 0)
     {
-      Log("Open file %s successful:fd = %d\n",file_table[i].name,i);
+      Log("Open file %s successful:fd = %d\n", file_table[i].name, i);
       return i;
     }
   }
-  panic("Open file %s failed:file not found\n",pathname);
+  panic("Open file %s failed:file not found\n", pathname);
   return -1;
 }
 ssize_t fs_read(int fd, void *buf, size_t len)
 {
-  //Log("fs_read\n");
-  if(fd<=2){return 0;}
+  Log("fs_read\n");
+  if (fd <= 2)
+  {
+    return 0;
+  }
   Finfo file = file_table[fd];
   off_t foff = file.disk_offset + file.open_offset;
   int flen = len;
-  if(len<file.size-file.open_offset)flen=file.size-file.open_offset;//real file len
-  assert(flen>=0);
+  if (len < file.size - file.open_offset)
+    flen = file.size - file.open_offset; // real file len
+  assert(flen >= 0);
   ramdisk_read(buf, foff, flen);
-  file.open_offset+=flen;
+  file.open_offset += flen;
   return flen;
 }
 ssize_t fs_write(int fd, const void *buf, size_t len)
 {
-  //Log("fs_write\n");
-  if(fd==0)return 0;
-  if(fd==1||fd==2){
+  // Log("fs_write\n");
+  if (fd == 0)
+    return 0;
+  if (fd == 1 || fd == 2)
+  {
     for (int i = 0; i < len; i++)
     {
       _putc(((char *)buf)[i]);
@@ -79,10 +84,11 @@ ssize_t fs_write(int fd, const void *buf, size_t len)
   Finfo file = file_table[fd];
   off_t foff = file.disk_offset + file.open_offset;
   int flen = len;
-  if(len<file.size-file.open_offset)flen=file.size-file.open_offset;//real file len
-  assert(flen>=0);
+  if (len < file.size - file.open_offset)
+    flen = file.size - file.open_offset; // real file len
+  assert(flen >= 0);
   ramdisk_write(buf, foff, flen);
-  file.open_offset+=flen;
+  file.open_offset += flen;
   return flen;
 }
 off_t fs_lseek(int fd, off_t offset, int whence)
@@ -92,27 +98,30 @@ off_t fs_lseek(int fd, off_t offset, int whence)
   switch (whence)
   {
   case SEEK_CUR:
-    file.open_offset=offset+file.open_offset;
+    file.open_offset = offset + file.open_offset;
     break;
   case SEEK_END:
-    file.open_offset=offset+file.size;
+    file.open_offset = offset + file.size;
     break;
   case SEEK_SET:
-    file.open_offset=offset;
+    file.open_offset = offset;
     break;
   default:
     panic("Unvalid whence\n");
   }
-  if(file.open_offset<0||file.open_offset>file.size){
-    panic("lseek offset out of bound:%d\n",file.open_offset);
+  if (file.open_offset < 0 || file.open_offset > file.size)
+  {
+    panic("lseek offset out of bound:%d\n", file.open_offset);
   }
   return file.open_offset;
 }
-int fs_close(int fd){
-  //Log("fs_close\n");
+int fs_close(int fd)
+{
+  // Log("fs_close\n");
   return 0;
 }
-size_t fs_filesz(int fd){
+size_t fs_filesz(int fd)
+{
   Finfo file = file_table[fd];
   return file.size;
 }
