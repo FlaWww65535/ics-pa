@@ -31,7 +31,7 @@ size_t events_read(void *buf, size_t len)
     }
   }
   memcpy(buf, eve, len);
-  printf("buf is %s\n", buf);
+  // printf("buf is %s\n", buf);
   return strlen(buf);
 }
 
