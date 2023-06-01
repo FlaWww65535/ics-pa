@@ -31,7 +31,7 @@ int main()
 
   init_fs();
 
-  uint32_t entry = loader(NULL, "/bin/nes");
+  uint32_t entry = loader(NULL, "/bin/pal");
   Log("Load success\n");
   ((void (*)(void))entry)();
 
