@@ -15,7 +15,6 @@ int NDL_OpenDisplay(int w, int h) {
   if (!canvas) {
     NDL_CloseDisplay();
   }
-  printf("done\n");
 
   canvas_w = w;
   canvas_h = h;
@@ -27,7 +26,6 @@ int NDL_OpenDisplay(int w, int h) {
   } else {
     has_nwm = 0;
   }
-  printf("done\n");
 
   if (has_nwm) {
     printf("\033[X%d;%ds", w, h); fflush(stdout);
