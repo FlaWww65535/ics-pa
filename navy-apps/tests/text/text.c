@@ -16,7 +16,7 @@ int main()
   {
     fscanf(fp, "%d", &n);
     printf("n = %d\n", n);
-    // assert(n == i + 1);
+    assert(n == i + 1);
   }
 
   fseek(fp, 0, SEEK_SET);

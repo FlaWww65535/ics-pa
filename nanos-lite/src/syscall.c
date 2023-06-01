@@ -37,7 +37,6 @@ int sys_write(uintptr_t fd, uintptr_t buf, uintptr_t len)
   return fs_write(fd, buf, len);
 }
 
-
 int sys_lseek(uintptr_t fd, uintptr_t offset, uintptr_t whence)
 {
   Log("_lseek\n");
@@ -51,7 +50,7 @@ _RegSet *do_syscall(_RegSet *r)
   a[1] = SYSCALL_ARG2(r);
   a[2] = SYSCALL_ARG3(r);
   a[3] = SYSCALL_ARG4(r);
-  //Log("do_syscall: No %d\n",a[0]);
+  Log("do_syscall: No %d\n", a[0]);
   switch (a[0])
   {
   case SYS_none:
