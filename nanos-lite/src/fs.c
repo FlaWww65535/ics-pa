@@ -64,7 +64,7 @@ ssize_t fs_read(int fd, void *buf, size_t len)
   off_t foff = file->disk_offset + file->open_offset;
   Log("open_offset:%d\tlen:%d\n", file->open_offset, len);
   int flen = len;
-  if (len < (file->size - file->open_offset))
+  if (len > (file->size - file->open_offset))
     flen = file->size - file->open_offset; // real file len
   assert(flen >= 0);
   ramdisk_read(buf, foff, flen);
@@ -88,7 +88,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len)
   off_t foff = file->disk_offset + file->open_offset;
   Log("open_offset:%d\tlen:%d\n", file->open_offset, len);
   int flen = len;
-  if (len < (file->size - file->open_offset))
+  if (len > (file->size - file->open_offset))
     flen = file->size - file->open_offset; // real file len
   assert(flen >= 0);
   ramdisk_write(buf, foff, flen);
