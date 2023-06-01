@@ -11,23 +11,25 @@ static const char *keyname[256] __attribute__((used)) = {
 
 size_t events_read(void *buf, size_t len)
 {
+  char *eve[20];
   int key = _read_key();
   if (key == _KEY_NONE)
   {
     unsigned long time = _uptime();
-    sprintf(buf, "t %d\n", time);
+    sprintf(eve, "t %d\n", time);
   }
   else
   {
     if (key & KEYDOWN_MASK)
     {
-      sprintf(buf, "kd %d\n", keyname[key & 0xfff]);
+      sprintf(eve, "kd %d\n", keyname[key & 0xfff]);
     }
     else
     {
-      sprintf(buf, "ku %d\n", keyname[key & 0xfff]);
+      sprintf(eve, "ku %d\n", keyname[key & 0xfff]);
     }
   }
+  memcpy(buf, eve, len);
   return strlen(buf);
 }
 

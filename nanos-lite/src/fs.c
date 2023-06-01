@@ -57,6 +57,7 @@ ssize_t fs_read(int fd, void *buf, size_t len)
 {
   // Log("fs_read\n");
   ssize_t ret = 0;
+  Finfo *file = &file_table[fd];
   switch (fd)
   {
   case FD_STDIN:
@@ -64,9 +65,15 @@ ssize_t fs_read(int fd, void *buf, size_t len)
   case FD_STDERR:
     ret = 0;
     break;
+  case FD_EVENTS:
+  {
+    size_t flen = events_read(buf, file->open_offset, len);
+    file->open_offset += flen;
+    ret = flen;
+    break;
+  }
   case FD_DISPINFO:
   {
-    Finfo *file = &file_table[fd];
     size_t flen = dispinfo_read(buf, file->open_offset, len);
     file->open_offset += flen;
     ret = flen;
@@ -74,7 +81,6 @@ ssize_t fs_read(int fd, void *buf, size_t len)
   }
   default:
   {
-    Finfo *file = &file_table[fd];
     off_t foff = file->disk_offset + file->open_offset;
     int flen = len;
     if (len > (file->size - file->open_offset))
