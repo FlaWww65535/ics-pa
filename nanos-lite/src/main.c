@@ -31,7 +31,7 @@ int main()
 
   init_fs();
 
-  uint32_t entry = loader(NULL, "/bin/text");
+  uint32_t entry = loader(NULL, "/bin/bmptest");
   Log("Load success\n");
   ((void (*)(void))entry)();
 

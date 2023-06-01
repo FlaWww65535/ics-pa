@@ -69,6 +69,7 @@ ssize_t fs_read(int fd, void *buf, size_t len)
     Finfo *file = &file_table[fd];
     size_t flen = dispinfo_read(buf, file->open_offset, len);
     file->open_offset += flen;
+    ret = flen;
     break;
   }
   default:
@@ -106,7 +107,13 @@ ssize_t fs_write(int fd, const void *buf, size_t len)
     ret = len;
     break;
   case FD_FB:
-
+  {
+    Finfo *file = &file_table[fd];
+    size_t flen = fb_write(buf, file->open_offset, len);
+    file->open_offset += flen;
+    ret = flen;
+    break;
+  }
   default:
   {
     Finfo *file = &file_table[fd];
