@@ -67,7 +67,7 @@ ssize_t fs_read(int fd, void *buf, size_t len)
     break;
   case FD_EVENTS:
   {
-    size_t flen = events_read(buf, file->open_offset, len);
+    size_t flen = events_read(buf, len);
     file->open_offset += flen;
     ret = flen;
     break;
