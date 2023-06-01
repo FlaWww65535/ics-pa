@@ -54,12 +54,15 @@ int fs_open(const char *pathname, int flags, int mode)
 ssize_t fs_read(int fd, void *buf, size_t len)
 {
   Log("fs_read\n");
+
   if (fd <= 2)
   {
     return 0;
   }
   Finfo file = file_table[fd];
+  Log("file:%s\n", file.name);
   off_t foff = file.disk_offset + file.open_offset;
+
   Log("open_offset:%d\tlen:%d\n", file.open_offset, len);
   int flen = len;
   if (len < file.size - file.open_offset)
