@@ -36,6 +36,7 @@ void init_fs()
 {
   // TODO: initialize the size of /dev/fb
   file_table[FD_FB].disk_offset = _screen.width * _screen.height * sizeof(uint32_t);
+  Log("fb size%d\n", file_table[FD_FB].disk_offset);
 }
 
 int fs_open(const char *pathname, int flags, int mode)
