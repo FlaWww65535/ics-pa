@@ -21,31 +21,35 @@ static char *log_file = NULL;
 static char *img_file = NULL;
 static int is_batch_mode = false;
 
-static inline void init_log() {
+static inline void init_log()
+{
 #ifdef DEBUG
-  if (log_file == NULL) return;
+  if (log_file == NULL)
+    return;
   log_fp = fopen(log_file, "w");
   Assert(log_fp, "Can not open '%s'", log_file);
 #endif
 }
 
-static inline void welcome() {
+static inline void welcome()
+{
   printf("Welcome to NEMU!\n");
   Log("Build time: %s, %s", __TIME__, __DATE__);
   printf("For help, type \"help\"\n");
 }
 
-static inline int load_default_img() {
-  const uint8_t img []  = {
-    0xb8, 0x34, 0x12, 0x00, 0x00,        // 100000:  movl  $0x1234,%eax
-    0xb9, 0x27, 0x00, 0x10, 0x00,        // 100005:  movl  $0x100027,%ecx
-    0x89, 0x01,                          // 10000a:  movl  %eax,(%ecx)
-    0x66, 0xc7, 0x41, 0x04, 0x01, 0x00,  // 10000c:  movw  $0x1,0x4(%ecx)
-    0xbb, 0x02, 0x00, 0x00, 0x00,        // 100012:  movl  $0x2,%ebx
-    0x66, 0xc7, 0x84, 0x99, 0x00, 0xe0,  // 100017:  movw  $0x1,-0x2000(%ecx,%ebx,4)
-    0xff, 0xff, 0x01, 0x00,
-    0xb8, 0x00, 0x00, 0x00, 0x00,        // 100021:  movl  $0x0,%eax
-    0xd6,                                // 100026:  nemu_trap
+static inline int load_default_img()
+{
+  const uint8_t img[] = {
+      0xb8, 0x34, 0x12, 0x00, 0x00,       // 100000:  movl  $0x1234,%eax
+      0xb9, 0x27, 0x00, 0x10, 0x00,       // 100005:  movl  $0x100027,%ecx
+      0x89, 0x01,                         // 10000a:  movl  %eax,(%ecx)
+      0x66, 0xc7, 0x41, 0x04, 0x01, 0x00, // 10000c:  movw  $0x1,0x4(%ecx)
+      0xbb, 0x02, 0x00, 0x00, 0x00,       // 100012:  movl  $0x2,%ebx
+      0x66, 0xc7, 0x84, 0x99, 0x00, 0xe0, // 100017:  movw  $0x1,-0x2000(%ecx,%ebx,4)
+      0xff, 0xff, 0x01, 0x00,
+      0xb8, 0x00, 0x00, 0x00, 0x00, // 100021:  movl  $0x0,%eax
+      0xd6,                         // 100026:  nemu_trap
   };
 
   Log("No image is given. Use the default build-in image.");
@@ -55,12 +59,15 @@ static inline int load_default_img() {
   return sizeof(img);
 }
 
-static inline void load_img() {
+static inline void load_img()
+{
   long size;
-  if (img_file == NULL) {
+  if (img_file == NULL)
+  {
     size = load_default_img();
   }
-  else {
+  else
+  {
     int ret;
 
     FILE *fp = fopen(img_file, "rb");
@@ -83,34 +90,46 @@ static inline void load_img() {
 #endif
 }
 
-static inline void restart() {
+static inline void restart()
+{
   /* Set the initial instruction pointer. */
   cpu.eip = ENTRY_START;
   cpu.eflags = EFLAGS_INIT_VALUE;
-  cpu.cs=CS_INIT_VALUE;
-  cpu.inst_cnt=0;
+  cpu.cs = CS_INIT_VALUE;
+  cpu.inst_cnt = 0;
 #ifdef DIFF_TEST
   init_qemu_reg();
+  is_qemu_show = 0;
 #endif
 }
 
-static inline void parse_args(int argc, char *argv[]) {
+static inline void parse_args(int argc, char *argv[])
+{
   int o;
-  while ( (o = getopt(argc, argv, "-bl:")) != -1) {
-    switch (o) {
-      case 'b': is_batch_mode = true; break;
-      case 'l': log_file = optarg; break;
-      case 1:
-                if (img_file != NULL) Log("too much argument '%s', ignored", optarg);
-                else img_file = optarg;
-                break;
-      default:
-                panic("Usage: %s [-b] [-l log_file] [img_file]", argv[0]);
+  while ((o = getopt(argc, argv, "-bl:")) != -1)
+  {
+    switch (o)
+    {
+    case 'b':
+      is_batch_mode = true;
+      break;
+    case 'l':
+      log_file = optarg;
+      break;
+    case 1:
+      if (img_file != NULL)
+        Log("too much argument '%s', ignored", optarg);
+      else
+        img_file = optarg;
+      break;
+    default:
+      panic("Usage: %s [-b] [-l log_file] [img_file]", argv[0]);
     }
   }
 }
 
-int init_monitor(int argc, char *argv[]) {
+int init_monitor(int argc, char *argv[])
+{
   /* Perform some global initialization. */
 
   /* Parse arguments. */
@@ -121,7 +140,7 @@ int init_monitor(int argc, char *argv[]) {
 
   /* Test the implementation of the `CPU_state' structure. */
   reg_test();
-  //printf("test");
+  // printf("test");
 #ifdef DIFF_TEST
   /* Fork a child process to perform differential testing. */
   init_difftest();
