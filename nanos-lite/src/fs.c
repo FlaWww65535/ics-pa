@@ -55,7 +55,7 @@ int fs_open(const char *pathname, int flags, int mode)
 
 ssize_t fs_read(int fd, void *buf, size_t len)
 {
-  Log("fs_read\n");
+  // Log("fs_read\n");
   ssize_t ret = 0;
   Finfo *file = &file_table[fd];
   switch (fd)

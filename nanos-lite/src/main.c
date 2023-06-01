@@ -31,7 +31,7 @@ int main()
 
   init_fs();
 
-  uint32_t entry = loader(NULL, "/bin/events");
+  uint32_t entry = loader(NULL, "/bin/nes");
   Log("Load success\n");
   ((void (*)(void))entry)();
 
