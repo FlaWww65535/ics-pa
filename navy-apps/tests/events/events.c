@@ -7,7 +7,7 @@ int main()
   while (1)
   {
     j++;
-    if (j == 1000000)
+    if (j == 100000)
     {
       char buf[256];
       char *p = buf, ch;
