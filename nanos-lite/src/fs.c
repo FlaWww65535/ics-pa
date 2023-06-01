@@ -55,7 +55,7 @@ int fs_open(const char *pathname, int flags, int mode)
 
 ssize_t fs_read(int fd, void *buf, size_t len)
 {
-  // Log("fs_read\n");
+  Log("fs_read\n");
   ssize_t ret = 0;
   switch (fd)
   {
@@ -91,7 +91,7 @@ ssize_t fs_read(int fd, void *buf, size_t len)
 
 ssize_t fs_write(int fd, const void *buf, size_t len)
 {
-  // Log("fs_write\n");
+  Log("fs_write\n");
   ssize_t ret = 0;
   switch (fd)
   {
