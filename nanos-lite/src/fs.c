@@ -36,7 +36,6 @@ void init_fs()
 {
   // TODO: initialize the size of /dev/fb
   file_table[FD_FB].disk_offset = _screen.width * _screen.height * sizeof(uint32_t);
-  Log("fb size%d\n", file_table[FD_FB].disk_offset);
 }
 
 int fs_open(const char *pathname, int flags, int mode)
@@ -53,51 +52,73 @@ int fs_open(const char *pathname, int flags, int mode)
   panic("Open file %s failed:file not found\n", pathname);
   return -1;
 }
+
 ssize_t fs_read(int fd, void *buf, size_t len)
 {
   // Log("fs_read\n");
-
-  if (fd <= 2)
+  ssize_t ret = 0;
+  switch (fd)
   {
-    return 0;
+  case FD_STDIN:
+  case FD_STDOUT:
+  case FD_STDERR:
+    ret = 0;
+    break;
+  default:
+  {
+    Finfo *file = &file_table[fd];
+    off_t foff = file->disk_offset + file->open_offset;
+    int flen = len;
+    if (len > (file->size - file->open_offset))
+      flen = file->size - file->open_offset; // real file len
+    assert(flen >= 0);
+    ramdisk_read(buf, foff, flen);
+    file->open_offset += flen;
+    ret = flen;
+    break;
   }
-  Finfo *file = &file_table[fd];
-  // Log("file:%s\n", file->name);
-  off_t foff = file->disk_offset + file->open_offset;
-  // Log("open_offset:%d\tlen:%d\n", file->open_offset, len);
-  int flen = len;
-  if (len > (file->size - file->open_offset))
-    flen = file->size - file->open_offset; // real file len
-  assert(flen >= 0);
-  ramdisk_read(buf, foff, flen);
-  file->open_offset += flen;
-  return flen;
+  }
+  return ret;
 }
+
 ssize_t fs_write(int fd, const void *buf, size_t len)
 {
   // Log("fs_write\n");
-  if (fd == 0)
-    return 0;
-  if (fd == 1 || fd == 2)
+  ssize_t ret = 0;
+  switch (fd)
   {
+  case FD_STDIN:
+    ret = 0;
+    break;
+  case FD_STDOUT:
+  case FD_STDERR:
     for (int i = 0; i < len; i++)
     {
       _putc(((char *)buf)[i]);
     }
-    return len;
+    ret = len;
+    break;
+  case FD_FB:
+
+  default:
+  {
+    Finfo *file = &file_table[fd];
+    off_t foff = file->disk_offset + file->open_offset;
+    // Log("open_offset:%d\tlen:%d\n", file->open_offset, len);
+    int flen = len;
+    if (len > (file->size - file->open_offset))
+      flen = file->size - file->open_offset; // real file len
+    assert(flen >= 0);
+    ramdisk_write(buf, foff, flen);
+    file->open_offset += flen;
+    // Log("done. open_offset:%d\tflen:%d\n", file->open_offset, flen);
+    ret = flen;
+    break;
   }
-  Finfo *file = &file_table[fd];
-  off_t foff = file->disk_offset + file->open_offset;
-  // Log("open_offset:%d\tlen:%d\n", file->open_offset, len);
-  int flen = len;
-  if (len > (file->size - file->open_offset))
-    flen = file->size - file->open_offset; // real file len
-  assert(flen >= 0);
-  ramdisk_write(buf, foff, flen);
-  file->open_offset += flen;
-  // Log("done. open_offset:%d\tflen:%d\n", file->open_offset, flen);
-  return flen;
+  }
+  return ret;
 }
+
 off_t fs_lseek(int fd, off_t offset, int whence)
 {
   // Log("fs_lseek\n");
