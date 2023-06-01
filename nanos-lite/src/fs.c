@@ -64,6 +64,13 @@ ssize_t fs_read(int fd, void *buf, size_t len)
   case FD_STDERR:
     ret = 0;
     break;
+  case FD_DISPINFO:
+  {
+    Finfo *file = &file_table[fd];
+    size_t flen = dispinfo_read(buf, file->open_offset, len);
+    file->open_offset += flen;
+    break;
+  }
   default:
   {
     Finfo *file = &file_table[fd];
