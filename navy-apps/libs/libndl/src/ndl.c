@@ -15,6 +15,7 @@ int NDL_OpenDisplay(int w, int h) {
   if (!canvas) {
     NDL_CloseDisplay();
   }
+  printf("done\n");
 
   canvas_w = w;
   canvas_h = h;
@@ -26,6 +27,7 @@ int NDL_OpenDisplay(int w, int h) {
   } else {
     has_nwm = 0;
   }
+  printf("done\n");
 
   if (has_nwm) {
     printf("\033[X%d;%ds", w, h); fflush(stdout);
@@ -39,11 +41,13 @@ int NDL_OpenDisplay(int w, int h) {
     fbdev = fopen("/dev/fb", "w"); assert(fbdev);
     evtdev = fopen("/dev/events", "r"); assert(evtdev);
   }
+  printf("done\n");
+
 }
 
 int NDL_CloseDisplay() {
   if (canvas) {
-    free(canvas);
+    free(canvas); 
   }
   return 0;
 }
