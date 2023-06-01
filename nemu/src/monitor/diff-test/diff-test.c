@@ -163,7 +163,8 @@ void difftest_step(uint32_t eip)
     gdb_getregs(&r);
     regcpy_from_nemu(r);
     gdb_setregs(&r);
-    printf("skip: %d\n", is_qemu_show);
+    if (is_qemu_show)
+      printf("skip: %d\n", is_qemu_show);
     if (is_qemu_show)
     {
       gdb_getregs(&r);
