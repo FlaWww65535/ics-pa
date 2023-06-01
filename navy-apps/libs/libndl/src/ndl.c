@@ -41,7 +41,6 @@ int NDL_OpenDisplay(int w, int h)
   else
   {
     get_display_info();
-    printf("done\n");
     assert(screen_w >= canvas_w);
     assert(screen_h >= canvas_h);
     pad_x = (screen_w - canvas_w) / 2;
@@ -51,7 +50,6 @@ int NDL_OpenDisplay(int w, int h)
     evtdev = fopen("/dev/events", "r");
     assert(evtdev);
   }
-  printf("done\n");
 }
 
 int NDL_CloseDisplay()
