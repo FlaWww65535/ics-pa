@@ -14,7 +14,6 @@ make_EHelper(lidt)
   {
     cpu.idtr.base = vaddr_read(id_dest->addr + 2, 4);
   }
-
   print_asm_template1(lidt);
 }
 
