@@ -6,6 +6,7 @@
 #define CS_INIT_VALUE 0x0008
 
 extern uint32_t si_cnt;
+extern uint32_t is_qemu_show;
 
 void init_difftest();
 void init_regex();
