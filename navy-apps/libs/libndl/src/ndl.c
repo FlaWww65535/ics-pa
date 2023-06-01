@@ -98,6 +98,7 @@ int NDL_Render()
   {
     for (int i = 0; i < canvas_h; i++)
     {
+      printf("y axis:%d\tx axis:%d\tindex:%d\n", i + pad_y, pad_x, ((i + pad_y) * screen_w + pad_x));
       fseek(fbdev, ((i + pad_y) * screen_w + pad_x) * sizeof(uint32_t), SEEK_SET);
       fwrite(&canvas[i * canvas_w], sizeof(uint32_t), canvas_w, fbdev);
     }
