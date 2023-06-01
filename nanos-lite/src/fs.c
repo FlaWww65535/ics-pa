@@ -60,6 +60,7 @@ ssize_t fs_read(int fd, void *buf, size_t len)
   }
   Finfo file = file_table[fd];
   off_t foff = file.disk_offset + file.open_offset;
+  Log("open_offset:%d\tlen:%d\n", file.open_offset, len);
   int flen = len;
   if (len < file.size - file.open_offset)
     flen = file.size - file.open_offset; // real file len
