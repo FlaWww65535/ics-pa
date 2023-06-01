@@ -14,16 +14,16 @@ size_t events_read(void *buf, size_t len)
 
 static char dispinfo[128] __attribute__((used));
 
-void dispinfo_read(void *buf, off_t offset, size_t len)
+size_t dispinfo_read(void *buf, off_t offset, size_t len)
 {
 
   size_t flen = (offset + len > strlen(dispinfo)) ? (strlen(dispinfo) - offset) : len;
   printf("dispinfo_read: offset = %d,len = %d,flen = %d\n", offset, len, flen);
   memcpy(buf, dispinfo + offset, flen);
-  return;
+  return flen;
 }
 
-void fb_write(const void *buf, off_t offset, size_t len)
+size_t fb_write(const void *buf, off_t offset, size_t len)
 {
   int x = (offset / 4) % _screen.width;
   int y = (offset / 4) / _screen.width;
