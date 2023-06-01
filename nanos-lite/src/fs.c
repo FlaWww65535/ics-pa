@@ -114,6 +114,7 @@ off_t fs_lseek(int fd, off_t offset, int whence)
   {
     panic("lseek offset out of bound:%d\n", file.open_offset);
   }
+  Log("open_offset:%d\n", file.open_offset);
   return file.open_offset;
 }
 int fs_close(int fd)
