@@ -11,7 +11,7 @@ static const char *keyname[256] __attribute__((used)) = {
 
 size_t events_read(void *buf, size_t len)
 {
-  printf("events_read\n");
+  printf("events_read len = %d\n", len);
   char *eve[20];
   int key = _read_key();
   if (key == _KEY_NONE)
