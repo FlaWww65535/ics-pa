@@ -153,6 +153,7 @@ off_t fs_lseek(int fd, off_t offset, int whence)
   }
   if (file->open_offset < 0 || file->open_offset > file->size)
   {
+    Log("file:%s\topen_offset:%d\n", file->name, file->open_offset);
     panic("lseek offset out of bound:%d\n", file->open_offset);
   }
   // Log("file:%s\topen_offset:%d\n", file->name, file->open_offset);
