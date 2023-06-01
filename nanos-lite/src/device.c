@@ -18,7 +18,7 @@ size_t dispinfo_read(void *buf, off_t offset, size_t len)
 {
 
   size_t flen = (offset + len > strlen(dispinfo)) ? (strlen(dispinfo) - offset) : len;
-  printf("dispinfo_read: offset = %d,len = %d,flen = %d\n", offset, len, flen);
+  // printf("dispinfo_read: offset = %d,len = %d,flen = %d\n", offset, len, flen);
   memcpy(buf, dispinfo + offset, flen);
   return flen;
 }
