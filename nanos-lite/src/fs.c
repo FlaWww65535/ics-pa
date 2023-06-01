@@ -73,7 +73,7 @@ ssize_t fs_read(int fd, void *buf, size_t len)
 }
 ssize_t fs_write(int fd, const void *buf, size_t len)
 {
-  // Log("fs_write\n");
+  Log("fs_write\n");
   if (fd == 0)
     return 0;
   if (fd == 1 || fd == 2)
@@ -86,6 +86,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len)
   }
   Finfo *file = &file_table[fd];
   off_t foff = file->disk_offset + file->open_offset;
+  Log("open_offset:%d\tlen:%d\n", file->open_offset, len);
   int flen = len;
   if (len < file->size - file->open_offset)
     flen = file->size - file->open_offset; // real file len
