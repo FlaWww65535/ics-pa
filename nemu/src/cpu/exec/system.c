@@ -43,7 +43,7 @@ make_EHelper(int)
   print_asm("int %s", id_dest->str);
 
 #ifdef DIFF_TEST
-  // diff_test_skip_nemu();
+  diff_test_skip_nemu();
 #endif
 }
 
