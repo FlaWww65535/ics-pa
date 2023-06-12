@@ -4,29 +4,30 @@
 
 CPU_state cpu;
 
-const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi","eflags","ecs","idtr"};
+const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi", "eflags", "ecs", "idtr", "cr0", "cr3"};
 const char *regsw[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
 const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};
 
-void reg_test() {
+void reg_test()
+{
   srand(time(0));
   uint32_t sample[9];
   uint32_t eip_sample = rand();
   cpu.eip = eip_sample;
 
   int i;
-  for (i = R_EAX; i <= R_EDI; i ++) {
+  for (i = R_EAX; i <= R_EDI; i++)
+  {
     sample[i] = rand();
     reg_l(i) = sample[i];
     assert(reg_w(i) == (sample[i] & 0xffff));
   }
-  sample[R_EFLAGS]=rand();
+  sample[R_EFLAGS] = rand();
 
-  cpu.eflags=sample[R_EFLAGS];
+  cpu.eflags = sample[R_EFLAGS];
   assert(cpu.eflags == sample[R_EFLAGS]);
-  //printf("flags=%x OF=%x",cpu.flags,cpu.OF);
-  assert(cpu.flags==(sample[R_EFLAGS]& 0xffff));
-
+  // printf("flags=%x OF=%x",cpu.flags,cpu.OF);
+  assert(cpu.flags == (sample[R_EFLAGS] & 0xffff));
 
   assert(reg_b(R_AL) == (sample[R_EAX] & 0xff));
   assert(reg_b(R_AH) == ((sample[R_EAX] >> 8) & 0xff));
@@ -37,11 +38,11 @@ void reg_test() {
   assert(reg_b(R_DL) == (sample[R_EDX] & 0xff));
   assert(reg_b(R_DH) == ((sample[R_EDX] >> 8) & 0xff));
 
-  assert((cpu.OF<<11) == (sample[R_EFLAGS]&(1<<11)));
-  assert((cpu.IF<<9) == (sample[R_EFLAGS]&(1<<9)));
-  assert((cpu.SF<<7) == (sample[R_EFLAGS]&(1<<7)));
-  assert((cpu.ZF<<6) == (sample[R_EFLAGS]&(1<<6)));
-  assert((cpu.CF<<0) == (sample[R_EFLAGS]&(1<<0)));
+  assert((cpu.OF << 11) == (sample[R_EFLAGS] & (1 << 11)));
+  assert((cpu.IF << 9) == (sample[R_EFLAGS] & (1 << 9)));
+  assert((cpu.SF << 7) == (sample[R_EFLAGS] & (1 << 7)));
+  assert((cpu.ZF << 6) == (sample[R_EFLAGS] & (1 << 6)));
+  assert((cpu.CF << 0) == (sample[R_EFLAGS] & (1 << 0)));
 
   assert(sample[R_EAX] == cpu.eax);
   assert(sample[R_ECX] == cpu.ecx);
@@ -51,8 +52,7 @@ void reg_test() {
   assert(sample[R_EBP] == cpu.ebp);
   assert(sample[R_ESI] == cpu.esi);
   assert(sample[R_EDI] == cpu.edi);
-  assert(sample[R_EFLAGS]==cpu.eflags);
-  
+  assert(sample[R_EFLAGS] == cpu.eflags);
 
   assert(eip_sample == cpu.eip);
 }
