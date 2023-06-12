@@ -20,7 +20,7 @@ make_EHelper(lidt)
 make_EHelper(mov_r2cr)
 {
 
-  rtl_mov(&t1, &id_src->val);
+  rtl_mv(&t1, &id_src->val);
   switch (id_dest->reg)
   {
   case 0:
@@ -37,14 +37,14 @@ make_EHelper(mov_r2cr)
 
 make_EHelper(mov_cr2r)
 {
-  rtl_mov(&t1, &id_src->val);
+  rtl_mv(&t1, &id_src->val);
   switch (id_dest->reg)
   {
   case 0:
-    rtl_mov(&t1, &cpu.cr0.val);
+    rtl_mv(&t1, &cpu.cr0.val);
     break;
   case 3:
-    rtl_mov(&t1, &cpu.cr3);
+    rtl_mv(&t1, &cpu.cr3);
     break;
   default:
     panic("invalid cr number %d\n", id_dest->reg);
