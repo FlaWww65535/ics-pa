@@ -20,7 +20,7 @@ void free_page(void *p)
 #define K4(va) (((uint32_t)(va) + 0xfff) & ~0xfff)
 int mm_brk(uint32_t new_brk)
 {
-  printf("mm brk\n");
+  // printf("mm brk\n");
   if (current->cur_brk == 0)
   {
     current->cur_brk = current->max_brk = new_brk;
