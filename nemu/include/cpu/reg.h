@@ -102,10 +102,10 @@ typedef struct
   {
     struct
     {
-      int8_t PG : 1;
       int32_t nouse : 31;
+      int32_t PG : 1;
     };
-    int32_t val
+    int32_t val;
   } cr0;
   uint32_t cr3;
 

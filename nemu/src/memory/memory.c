@@ -11,6 +11,23 @@ uint8_t pmem[PMEM_SIZE];
 
 /* Memory accessing interfaces */
 
+paddr_t page_translate(vaddr_t addr)
+{
+  uint32_t *pdt = (cpu.cr3);
+  PDE pde;
+  pde.val = pdt[addr >> 22];
+  if (pde.present == 0)
+    panic("invalid pde:%x", pde.val);
+
+  uint32_t *pt = pde.page_frame << 12;
+  PTE pte;
+  pte.val = pt[(addr >> 12) & 0x3ff];
+  if (pte.present == 0)
+    panic("invalid pte:%x", pte.val);
+
+  return (pte.page_frame << 12) + (addr & 0xfff);
+}
+
 uint32_t paddr_read(paddr_t addr, int len)
 {
   int id = is_mmio(addr);
@@ -29,15 +46,33 @@ void paddr_write(paddr_t addr, int len, uint32_t data)
     memcpy(guest_to_host(addr), &data, len);
     return;
   }
-  return mmio_write(addr,len,data,id);
+  return mmio_write(addr, len, data, id);
 }
 
 uint32_t vaddr_read(vaddr_t addr, int len)
 {
-  return paddr_read(addr, len);
+  if (addr / PAGE_SIZE < (addr + len) / PAGE_SIZE)
+  {
+    /* this is a special case, you can handle it later. */
+    assert(0);
+  }
+  else
+  {
+    paddr_t paddr = page_translate(addr);
+    return paddr_read(paddr, len);
+  }
 }
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data)
 {
-  paddr_write(addr, len, data);
+  if (addr / PAGE_SIZE < (addr + len) / PAGE_SIZE)
+  {
+    /* this is a special case, you can handle it later. */
+    assert(0);
+  }
+  else
+  {
+    paddr_t paddr = page_translate(addr);
+    paddr_write(paddr, len, data);
+  }
 }

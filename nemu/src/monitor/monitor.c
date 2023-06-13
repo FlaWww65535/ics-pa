@@ -4,6 +4,7 @@
 #define ENTRY_START 0x100000
 #define EFLAGS_INIT_VALUE 0x00000002
 #define CS_INIT_VALUE 0x0008
+#define CR0_INIT_VALUE 0x60000011
 
 extern uint32_t si_cnt;
 extern uint32_t is_qemu_show;
@@ -97,7 +98,9 @@ static inline void restart()
   cpu.eip = ENTRY_START;
   cpu.eflags = EFLAGS_INIT_VALUE;
   cpu.cs = CS_INIT_VALUE;
+  cpu.cr0.val = CR0_INIT_VALUE;
   cpu.inst_cnt = 0;
+
 #ifdef DIFF_TEST
   init_qemu_reg();
   is_qemu_show = 0;
