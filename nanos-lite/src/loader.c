@@ -9,7 +9,7 @@ uintptr_t loader(_Protect *as, const char *filename)
   size_t disk_size = get_ramdisk_size();
   int fd = fs_open(filename);
   size_t fsize = fs_filesz(fd);
-  for (int offset = 0; offset <= fsize; offset += PGSIZE)
+  for (int offset = 0; offset < fsize; offset += PGSIZE)
   {
     void *pg = new_page();
     void *va = DEFAULT_ENTRY + offset;
