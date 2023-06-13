@@ -224,6 +224,7 @@ static make_EHelper(2byte_esc)
 
 make_EHelper(real)
 {
+  printf("exec_real\n");
   uint32_t opcode = instr_fetch(eip, 1);
   decoding.opcode = opcode;
   set_width(opcode_table[opcode].width);
@@ -237,7 +238,6 @@ static inline void update_eip(void)
 
 void exec_wrapper(bool print_flag)
 {
-  printf("exex_wrapper\n");
 #ifdef DEBUG
   decoding.p = decoding.asm_buf;
   decoding.p += sprintf(decoding.p, "%8x:   ", cpu.eip);
