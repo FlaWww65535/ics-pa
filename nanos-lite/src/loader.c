@@ -15,7 +15,9 @@ uintptr_t loader(_Protect *as, const char *filename)
     void *va = DEFAULT_ENTRY + offset;
     _map(as, va, pg);
     size_t res = (fsize - offset);
-    fs_read(fd, pg, res < PGSIZE ? res : PGSIZE);
+    size_t len = res < PGSIZE ? res : PGSIZE;
+    fs_read(fd, pg, len);
+    printf("map page: paddr=%x vaddr=%x\n", pg, va);
   }
   Log("file size %d\n", fsize);
   return (uintptr_t)DEFAULT_ENTRY;
