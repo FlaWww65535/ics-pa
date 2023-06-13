@@ -19,7 +19,7 @@ paddr_t page_translate(vaddr_t addr)
   PDE pde;
   pde.val = pdt[addr >> 22];
   if (pde.present == 0)
-    panic("invalid pde:%x", pde.val);
+    panic("invalid pde:addr = %x,pde = %x", addr, pde.val);
 
   uint32_t *pt = guest_to_host((pde.page_frame << 12));
   PTE pte;
