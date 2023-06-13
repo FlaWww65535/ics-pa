@@ -12,6 +12,7 @@ static inline uint32_t instr_fetch(vaddr_t *eip, int len)
 {
   printf("instr_fetch\n");
   uint32_t instr = vaddr_read(*eip, len);
+  printf("instr_fetch\n");
 #ifdef DEBUG
   uint8_t *p_instr = (void *)&instr;
   int i;
@@ -21,6 +22,7 @@ static inline uint32_t instr_fetch(vaddr_t *eip, int len)
   }
 #endif
   (*eip) += len;
+  printf("instr_fetch\n");
   return instr;
 }
 
