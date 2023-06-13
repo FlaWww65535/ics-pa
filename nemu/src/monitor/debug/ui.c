@@ -145,6 +145,8 @@ static int cmd_info(char *args)
         printf("%-10s0x%08x\n", reg_name(i, 4), reg_l(i));
       }
       printf("%-10s0x%08x\n", "eflags", cpu.eflags);
+      printf("%-10s0x%08x\n", "cr0", cpu.cr0.val);
+      printf("%-10s0x%08x\n", "cr3", cpu.cr3);
     }
     else if (strcmp(arg, "w") == 0)
     {
