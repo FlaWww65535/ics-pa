@@ -17,7 +17,6 @@ void free_page(void *p)
 }
 
 /* The brk() system call handler. */
-#define K4(va) (((uint32_t)(va) + 0xfff) & ~0xfff)
 int mm_brk(uint32_t new_brk)
 {
   printf("mm brk\n");
@@ -32,14 +31,12 @@ int mm_brk(uint32_t new_brk)
 
       // TODO: map memory region [current->max_brk, new_brk)
       // into address space current->as
-      // into address space current->as
-      uintptr_t va = K4(current->max_brk); // 4k对齐
-      while (va < new_brk)
+      for (; current->max_brk < new_brk; current->max_brk += PGSIZE)
       {
-        _map(&current->as, (void *)va, (void *)new_page());
-        va += PGSIZE;
+        void *pg = new_page();
+        _map(&current->as, current->max_brk, pg);
       }
-      current->max_brk = new_brk; // =va ?
+      current->max_brk = new_brk;
     }
 
     current->cur_brk = new_brk;
