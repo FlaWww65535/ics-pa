@@ -53,6 +53,7 @@ void paddr_write(paddr_t addr, int len, uint32_t data)
 
 uint32_t vaddr_read(vaddr_t addr, int len)
 {
+  printf("vaddr_read\n");
   if (page_translate(addr + len) - page_translate(addr) != len)
   {
     /* this is a special case, you can handle it later. */
