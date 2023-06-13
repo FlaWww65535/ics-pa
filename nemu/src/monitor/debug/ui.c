@@ -278,7 +278,6 @@ static int cmd_d(char *args)
 
 void ui_mainloop(int is_batch_mode)
 {
-  printf("main loop\n");
   if (is_batch_mode)
   {
     cmd_c(NULL);
