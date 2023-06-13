@@ -21,6 +21,7 @@ make_EHelper(mov_r2cr)
 {
   printf("r2cr\n");
   rtl_mv(&t1, &id_src->val);
+  printf("r2cr\n");
   switch (id_dest->reg)
   {
   case 0:
