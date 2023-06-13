@@ -13,7 +13,6 @@ uint8_t pmem[PMEM_SIZE];
 
 paddr_t page_translate(vaddr_t addr)
 {
-  // printf("page_trans addr = %x\n", addr);
   if (cpu.cr0.PG == 0)
     return addr;
   uint32_t *pdt = guest_to_host(cpu.cr3);
@@ -21,7 +20,6 @@ paddr_t page_translate(vaddr_t addr)
   pde.val = pdt[addr >> 22];
   if (pde.present == 0)
   {
-    printf("pdt base = %x,host =%x", cpu.cr3, pdt);
     panic("invalid pde:addr = %x,pde = %x", addr, pde.val);
   }
 
@@ -29,7 +27,7 @@ paddr_t page_translate(vaddr_t addr)
   PTE pte;
   pte.val = pt[(addr >> 12) & 0x3ff];
   if (pte.present == 0)
-    panic("invalid pte:%x", pte.val);
+    panic("invalid pte:addr = %x,pte = %x", addr, pte.val);
 
   return (pte.page_frame << 12) + (addr & 0xfff);
 }

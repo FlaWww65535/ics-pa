@@ -85,11 +85,9 @@ void _map(_Protect *p, void *va, void *pa)
     pde |= 1;
   }
   pdt[PDX(va)] = pde;
-  printf("pde=%x\t", pde);
   uint32_t *pt = pde & 0xfffff000;
   PTE pte = (uint32_t)pa & 0xfffff000;
   pte |= 1;
-  printf("pte=%x\n", pte);
   pt[PTX(va)] = pte;
 }
 

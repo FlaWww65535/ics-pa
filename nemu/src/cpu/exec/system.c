@@ -19,7 +19,6 @@ make_EHelper(lidt)
 
 make_EHelper(mov_r2cr)
 {
-  printf("r2cr\n");
   rtl_mv(&t1, &id_src->val);
   switch (id_dest->reg)
   {
@@ -37,7 +36,6 @@ make_EHelper(mov_r2cr)
 
 make_EHelper(mov_cr2r)
 {
-  printf("cr2r\n");
   rtl_mv(&t1, &id_src->val);
   switch (id_dest->reg)
   {
