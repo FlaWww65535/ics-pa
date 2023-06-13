@@ -50,8 +50,8 @@ make_EHelper(mov_cr2r)
   default:
     panic("invalid cr number %d\n", id_dest->reg);
   }
-  operand_write(id_dest, t1);
-  printf("cr2r\n");
+  printf("cr2r t1=%d\n", t1);
+  operand_write(id_dest, &t1);
 
   print_asm("movl %%cr%d,%%%s", id_src->reg, reg_name(id_dest->reg, 4));
 
