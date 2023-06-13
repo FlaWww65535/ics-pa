@@ -13,11 +13,10 @@ uint8_t pmem[PMEM_SIZE];
 
 paddr_t page_translate(vaddr_t addr)
 {
-  printf("page_translate: addr %x\n", addr);
   if (cpu.cr0.PG == 0)
     return addr;
   uint32_t *pdt = (cpu.cr3);
-  printf("cr3 %x\n", pdt);
+  printf("addr: %x cr3: %x\n", cpu.cr3, pdt);
   PDE pde;
   pde.val = pdt[addr >> 22];
   if (pde.present == 0)
