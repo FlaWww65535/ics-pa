@@ -53,7 +53,7 @@ void paddr_write(paddr_t addr, int len, uint32_t data)
 
 uint32_t vaddr_read(vaddr_t addr, int len)
 {
-  if (addr / PAGE_SIZE < (addr + len) / PAGE_SIZE)
+  if (page_translate(addr + len) - page_translate(addr) != len)
   {
     /* this is a special case, you can handle it later. */
     panic("cross page edge\n");
@@ -67,7 +67,7 @@ uint32_t vaddr_read(vaddr_t addr, int len)
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data)
 {
-  if (addr / PAGE_SIZE < (addr + len) / PAGE_SIZE)
+  if (page_translate(addr + len) - page_translate(addr) != len)
   {
     /* this is a special case, you can handle it later. */
     panic("cross page edge\n");
