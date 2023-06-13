@@ -50,8 +50,9 @@ make_EHelper(mov_cr2r)
   default:
     panic("invalid cr number %d\n", id_dest->reg);
   }
-  printf("cr2r\n");
   operand_write(id_dest, t1);
+  printf("cr2r\n");
+
   print_asm("movl %%cr%d,%%%s", id_src->reg, reg_name(id_dest->reg, 4));
 
 #ifdef DIFF_TEST
