@@ -19,6 +19,7 @@ void free_page(void *p)
 /* The brk() system call handler. */
 int mm_brk(uint32_t new_brk)
 {
+  printf("mm brk\n");
   if (current->cur_brk == 0)
   {
     current->cur_brk = current->max_brk = new_brk;
@@ -27,7 +28,7 @@ int mm_brk(uint32_t new_brk)
   {
     if (new_brk > current->max_brk)
     {
-      printf("map brk\n");
+
       // TODO: map memory region [current->max_brk, new_brk)
       // into address space current->as
       for (; current->max_brk < new_brk; current->max_brk += PGSIZE)
