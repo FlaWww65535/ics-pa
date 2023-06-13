@@ -47,7 +47,6 @@ void _pte_init(void *(*palloc)(), void (*pfree)(void *))
   }
 
   set_cr3(kpdirs);
-  printf("cr3 init:%x\n", kpdirs);
   set_cr0(get_cr0() | CR0_PG);
 }
 

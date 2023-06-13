@@ -15,14 +15,14 @@ paddr_t page_translate(vaddr_t addr)
 {
   if (cpu.cr0.PG == 0)
     return addr;
-  uint32_t *pdt = (cpu.cr3);
+  uint32_t *pdt = guest_to_host(cpu.cr3);
   printf("addr: %x cr3: %x\n", addr, pdt);
   PDE pde;
   pde.val = pdt[addr >> 22];
   if (pde.present == 0)
     panic("invalid pde:%x", pde.val);
 
-  uint32_t *pt = pde.page_frame << 12;
+  uint32_t *pt = guest_to_host((pde.page_frame << 12));
   PTE pte;
   pte.val = pt[(addr >> 12) & 0x3ff];
   if (pte.present == 0)
