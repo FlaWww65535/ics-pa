@@ -7,6 +7,11 @@
   guest_to_host(addr);                                                        \
 })
 
+#define PDX(va) (((uint32_t)(va) >> 22) & 0x3ff)
+#define PTX(va) (((uint32_t)(va) >> 12) & 0x3ff)
+#define OFF(va) ((uint32_t)(va)&0xfff)
+#define PTE_ADDR(pte) ((uint32_t)(pte) & ~0xfff)
+
 uint8_t pmem[PMEM_SIZE];
 
 /* Memory accessing interfaces */
@@ -15,21 +20,22 @@ paddr_t page_translate(vaddr_t addr)
 {
   if (cpu.cr0.PG == 0)
     return addr;
-  uint32_t *pdt = guest_to_host(cpu.cr3);
+  PDE *pdt = (PDE *)PTE_ADDR(cpu.cr3);
   PDE pde;
-  pde.val = pdt[addr >> 22];
+  pde = pdt[PDX(addr)];
+  pde.val = paddr_read(&pdt[PDX(addr)], 4);
   if (pde.present == 0)
   {
     panic("invalid pde:addr = %x,pde = %x", addr, pde.val);
   }
 
-  uint32_t *pt = guest_to_host((pde.page_frame << 12));
+  PTE *pt = (PDE *)PTE_ADDR(pde.val);
   PTE pte;
-  pte.val = pt[(addr >> 12) & 0x3ff];
+  pte.val = paddr_read(&pt[PTX(addr)], 4);
   if (pte.present == 0)
     panic("invalid pte:addr = %x,pte = %x", addr, pte.val);
 
-  return (pte.page_frame << 12) + (addr & 0xfff);
+  return PTE_ADDR(pte.val) | OFF(addr);
 }
 
 uint32_t paddr_read(paddr_t addr, int len)
