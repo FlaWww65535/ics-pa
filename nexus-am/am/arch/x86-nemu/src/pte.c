@@ -75,6 +75,7 @@ void _switch(_Protect *p)
 
 void _map(_Protect *p, void *va, void *pa)
 {
+  printf("map page: paddr=%x vaddr=%x\n", pa, va);
   uint32_t *pdt = p->ptr;
   PDE pde = pdt[PDX(va)];
   if ((pde & 1) == 0)
@@ -83,9 +84,11 @@ void _map(_Protect *p, void *va, void *pa)
     pde = pg & 0xfffff000;
     pde |= 1;
   }
+  printf("pde=%x\t", pde);
   uint32_t *pt = pde & 0xfffff000;
   PTE pte = (uint32_t)pa & 0xfffff000;
   pte |= 1;
+  printf("pte=%x\n", pte);
   pt[PTX(va)] = pte;
 }
 
