@@ -8,8 +8,9 @@ PCB *current = NULL;
 
 uintptr_t loader(_Protect *as, const char *filename);
 
-void load_prog(const char *filename) {
-  int i = nr_proc ++;
+void load_prog(const char *filename)
+{
+  int i = nr_proc++;
   _protect(&pcb[i].as);
 
   uintptr_t entry = loader(&pcb[i].as, filename);
@@ -26,6 +27,7 @@ void load_prog(const char *filename) {
   pcb[i].tf = _umake(&pcb[i].as, stack, stack, (void *)entry, NULL, NULL);
 }
 
-_RegSet* schedule(_RegSet *prev) {
+_RegSet *schedule(_RegSet *prev)
+{
   return NULL;
 }

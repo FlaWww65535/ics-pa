@@ -75,6 +75,18 @@ void _switch(_Protect *p)
 
 void _map(_Protect *p, void *va, void *pa)
 {
+  uint32_t *pdt = p->ptr;
+  PDE pde = pdt[PDX(va)];
+  if ((pde & 1) == 0)
+  {
+    uint32_t pg = palloc_f();
+    pde = pg & 0xfffff000;
+    pde |= 1;
+  }
+  uint32_t *pt = pde & 0xfffff000;
+  PTE pte = (uint32_t)pa & 0xfffff000;
+  pte |= 1;
+  pt[PTX(va)] = pte;
 }
 
 void _unmap(_Protect *p, void *va)

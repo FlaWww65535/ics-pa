@@ -16,7 +16,7 @@ ISA_DEF = __ISA_$(shell echo $(ISA) | tr a-z A-Z)__
 CFLAGS   += -std=gnu99 -O2 -MMD $(INCLUDES) -D$(ISA_DEF) -fdata-sections -ffunction-sections -static
 CXXFLAGS += -std=c++11 -O2 -MMD $(INCLUDES) -D$(ISA_DEF) -fdata-sections -ffunction-sections -static
 ASFLAGS  +=                -MMD $(INCLUDES) -D$(ISA_DEF)
-LDFLAGS  += -e _start
+LDFLAGS  += -e _start 
 
 ifeq ($(LINK), dynamic)
   CFLAGS   += -fPIE
@@ -42,6 +42,7 @@ ifeq ($(ISA), x86)
   LDFLAGS  += -melf_i386
 endif
 
+
 # Files to be compiled
 OBJS = $(addprefix $(DST_DIR)/, $(addsuffix .o, $(basename $(SRCS))))
 
@@ -50,14 +51,17 @@ $(DST_DIR)/%.o: %.cpp
 	@echo + CXX $<
 	@mkdir -p $(dir $@)
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
+	@objcopy --remove-section .note.gnu.property $@
 $(DST_DIR)/%.o: %.c
 	@echo + CC $<
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c -o $@ $<
+	@objcopy --remove-section .note.gnu.property $@
 $(DST_DIR)/%.o: %.S
 	@echo + AR $<
 	@mkdir -p $(dir $@)
 	@$(AS) $(ASFLAGS) -c -o $@ $<
+	@objcopy --remove-section .note.gnu.property $@
 
 # Dependencies
 DEPS = $(addprefix $(DST_DIR)/, $(addsuffix .d, $(basename $(SRCS))))

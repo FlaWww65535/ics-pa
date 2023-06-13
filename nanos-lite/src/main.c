@@ -31,9 +31,7 @@ int main()
 
   init_fs();
 
-  uint32_t entry = loader(NULL, "/bin/text");
-  Log("Load success\n");
-  ((void (*)(void))entry)();
+  load_prog("/bin/dummy");
 
   panic("Should not reach here");
 }
