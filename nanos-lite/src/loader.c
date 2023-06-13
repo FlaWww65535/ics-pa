@@ -11,7 +11,7 @@ uintptr_t loader(_Protect *as, const char *filename)
   size_t fsize = fs_filesz(fd);
   for (int offset = 0; offset < fsize; offset += PGSIZE)
   {
-    void *pg = 0; // newpage();
+    void *pg = new_page();
     void *va = DEFAULT_ENTRY + offset;
     _map(as, va, pg);
     size_t res = (fsize - offset);
