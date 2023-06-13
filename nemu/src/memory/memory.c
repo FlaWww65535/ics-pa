@@ -13,7 +13,7 @@ uint8_t pmem[PMEM_SIZE];
 
 paddr_t page_translate(vaddr_t addr)
 {
-  printf("page_trans addr = %x\n", addr);
+  // printf("page_trans addr = %x\n", addr);
   if (cpu.cr0.PG == 0)
     return addr;
   uint32_t *pdt = guest_to_host(cpu.cr3);
