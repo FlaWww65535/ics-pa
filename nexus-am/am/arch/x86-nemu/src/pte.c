@@ -75,6 +75,7 @@ void _switch(_Protect *p)
 
 void _map(_Protect *p, void *va, void *pa)
 {
+  printf("map vaddr %x to paddr %x", va, pa);
   uint32_t *pdt = p->ptr;
   PDE pde = pdt[PDX(va)];
   if ((pde & 1) == 0)
