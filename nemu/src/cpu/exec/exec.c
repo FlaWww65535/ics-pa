@@ -226,8 +226,10 @@ make_EHelper(real)
 {
   printf("exec_real\n");
   uint32_t opcode = instr_fetch(eip, 1);
+  printf("exec_real\n");
   decoding.opcode = opcode;
   set_width(opcode_table[opcode].width);
+  printf("exec_real\n");
   idex(eip, &opcode_table[opcode]);
 }
 
