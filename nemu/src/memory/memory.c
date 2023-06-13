@@ -16,7 +16,6 @@ paddr_t page_translate(vaddr_t addr)
   if (cpu.cr0.PG == 0)
     return addr;
   uint32_t *pdt = guest_to_host(cpu.cr3);
-  printf("addr: %x cr3: %x\n", addr, pdt);
   PDE pde;
   pde.val = pdt[addr >> 22];
   if (pde.present == 0)
