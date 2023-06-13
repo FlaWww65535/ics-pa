@@ -1,5 +1,5 @@
 #include "cpu/exec.h"
-//data-mov
+// data-mov
 make_EHelper(mov);
 make_EHelper(movzx);
 make_EHelper(movsx);
@@ -9,13 +9,15 @@ make_EHelper(pusha);
 make_EHelper(popa);
 make_EHelper(cwtl);
 make_EHelper(cltd);
-//system
+// system
 make_EHelper(lidt);
 make_EHelper(int);
 make_EHelper(iret);
 make_EHelper(in);
 make_EHelper(out);
-//control
+make_EHelper(mov_r2cr);
+make_EHelper(mov_cr2r);
+// control
 make_EHelper(call);
 make_EHelper(call_rm);
 make_EHelper(ret);
@@ -24,7 +26,7 @@ make_EHelper(jmp);
 make_EHelper(jmp_rm);
 make_EHelper(leave);
 
-//arith/logic
+// arith/logic
 make_EHelper(add);
 make_EHelper(or);
 make_EHelper(adc);
@@ -50,7 +52,7 @@ make_EHelper(shl);
 make_EHelper(shr);
 make_EHelper(sar);
 
-make_EHelper(not);
+make_EHelper(not );
 make_EHelper(lea);
 
 make_EHelper(operand_size);
