@@ -61,10 +61,18 @@ void paddr_write(paddr_t addr, int len, uint32_t data)
 
 uint32_t vaddr_read(vaddr_t addr, int len)
 {
-  if (page_translate(addr + len) - page_translate(addr) != len)
+  // PAGE_MASK = 0xfff
+  if ((((addr) + (len)-1) & ~PAGE_MASK) != ((addr) & ~PAGE_MASK))
   {
-    /* this is a special case, you can handle it later. */
-    panic("cross page edge addr:%x len %d\n", addr, len);
+    // data cross the page boundary
+    uint32_t data = 0;
+    for (int i = 0; i < len; i++)
+    {
+      paddr_t paddr = page_translate(addr + i);
+      data += (paddr_read(paddr, 1)) << 8 * i;
+    }
+    return data;
+    // assert(0);
   }
   else
   {
@@ -75,10 +83,15 @@ uint32_t vaddr_read(vaddr_t addr, int len)
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data)
 {
-  if (page_translate(addr + len) - page_translate(addr) != len)
+  if ((((addr) + (len)-1) & ~PAGE_MASK) != ((addr) & ~PAGE_MASK))
   {
-    /* this is a special case, you can handle it later. */
-    panic("cross page edge addr:%x len %d\n", addr, len);
+    // data cross the page boundary
+    for (int i = 0; i < len; i++)
+    { // len 最大为4
+      paddr_t paddr = page_translate(addr + i);
+      paddr_write(paddr, 1, data >> 8 * i);
+    }
+    // assert(0);
   }
   else
   {
