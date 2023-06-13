@@ -31,7 +31,7 @@ int main()
 
   init_fs();
 
-  load_prog("/bin/bmp");
+  load_prog("/bin/bmptest");
 
   panic("Should not reach here");
 }
