@@ -13,7 +13,7 @@ int sys_exit(uintptr_t r)
 
 int sys_brk(uintptr_t addr)
 {
-  return 0;
+  return mm_brk(addr);
 }
 
 int sys_open(uintptr_t filename, uintptr_t flags, uintptr_t mode)
