@@ -13,17 +13,20 @@ uint8_t pmem[PMEM_SIZE];
 
 paddr_t page_translate(vaddr_t addr)
 {
+  printf("page_translate\n");
   if (cpu.cr0.PG == 0)
     return addr;
   uint32_t *pdt = (cpu.cr3);
   PDE pde;
   pde.val = pdt[addr >> 22];
+  printf("pde_translate\n");
   if (pde.present == 0)
     panic("invalid pde:%x", pde.val);
 
   uint32_t *pt = pde.page_frame << 12;
   PTE pte;
   pte.val = pt[(addr >> 12) & 0x3ff];
+  printf("pte_translate\n");
   if (pte.present == 0)
     panic("invalid pte:%x", pte.val);
 
@@ -62,6 +65,7 @@ uint32_t vaddr_read(vaddr_t addr, int len)
   else
   {
     paddr_t paddr = page_translate(addr);
+    printf("paddr_read\n");
     return paddr_read(paddr, len);
   }
 }
