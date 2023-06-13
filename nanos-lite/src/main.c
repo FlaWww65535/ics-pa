@@ -31,7 +31,7 @@ int main()
 
   init_fs();
 
-  load_prog("/bin/hello");
+  load_prog("/bin/text");
 
   panic("Should not reach here");
 }
