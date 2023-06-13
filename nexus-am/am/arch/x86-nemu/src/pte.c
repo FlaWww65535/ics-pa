@@ -55,10 +55,10 @@ void _protect(_Protect *p)
   PDE *updir = (PDE *)(palloc_f());
   p->ptr = updir;
   // map kernel space
-  for (int i = 0; i < NR_PDE; i++)
-  {
-    updir[i] = kpdirs[i];
-  }
+  // for (int i = 0; i < NR_PDE; i++)
+  // {
+  //   updir[i] = kpdirs[i];
+  // }
 
   p->area.start = (void *)0x8000000;
   p->area.end = (void *)0xc0000000;
@@ -75,7 +75,6 @@ void _switch(_Protect *p)
 
 void _map(_Protect *p, void *va, void *pa)
 {
-  printf("map page: paddr=%x vaddr=%x\n", pa, va);
   uint32_t *pdt = p->ptr;
   PDE pde = pdt[PDX(va)];
   if ((pde & 1) == 0)
@@ -83,7 +82,7 @@ void _map(_Protect *p, void *va, void *pa)
     uint32_t pg = palloc_f();
     pde = pg & 0xfffff000;
     pde |= 1;
-  }
+  } // malloc a new page as pt
   pdt[PDX(va)] = pde;
   uint32_t *pt = pde & 0xfffff000;
   PTE pte = (uint32_t)pa & 0xfffff000;
