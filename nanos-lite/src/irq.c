@@ -2,6 +2,7 @@
 
 static _RegSet *do_event(_Event e, _RegSet *r)
 {
+  Log("do_event: case:%d\n", e.event);
   switch (e.event)
   {
   case _EVENT_SYSCALL:
