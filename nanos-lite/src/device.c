@@ -21,6 +21,10 @@ size_t events_read(void *buf, size_t len)
   }
   else
   {
+    if (key == _KEY_F12)
+    {
+      current_game = current_game % 2 + 1;
+    }
     if (key & KEYDOWN_MASK)
     {
       sprintf(eve, "kd %s\n", keyname[key & 0xfff]);

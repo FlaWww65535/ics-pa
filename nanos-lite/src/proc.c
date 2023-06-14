@@ -5,7 +5,7 @@
 static PCB pcb[MAX_NR_PROC];
 static int nr_proc = 0;
 PCB *current = NULL;
-PCB *current_game = NULL;
+int current_game = 0;
 
 uintptr_t loader(_Protect *as, const char *filename);
 
@@ -26,7 +26,7 @@ void load_prog(const char *filename)
   stack.end = stack.start + sizeof(pcb[i].stack);
 
   pcb[i].tf = _umake(&pcb[i].as, stack, stack, (void *)entry, NULL, NULL);
-  current_game = &pcb[i];
+  current_game = i;
 }
 
 _RegSet *schedule(_RegSet *prev)
@@ -41,7 +41,7 @@ _RegSet *schedule(_RegSet *prev)
   }
   else
   {
-    current = current_game;
+    current = &pcb[current_game];
   }
   _switch(&current->as);
   return current->tf;
