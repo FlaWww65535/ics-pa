@@ -5,6 +5,7 @@
 static PCB pcb[MAX_NR_PROC];
 static int nr_proc = 0;
 PCB *current = NULL;
+PCB *current_game = NULL;
 
 uintptr_t loader(_Protect *as, const char *filename);
 
@@ -38,7 +39,7 @@ _RegSet *schedule(_RegSet *prev)
   }
   else
   {
-    current = &pcb[0];
+    current = current_game;
   }
   _switch(&current->as);
   return current->tf;
