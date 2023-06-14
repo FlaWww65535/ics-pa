@@ -117,7 +117,7 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
   tf.eflags = 0x202;
   tf.error_code = 0x0;
   _RegSet *tf_ptr = (_RegSet *)stack_frame - 1;
-  *tf_ptr = tf;
+  //*tf_ptr = tf;
 
   return tf_ptr;
 }
