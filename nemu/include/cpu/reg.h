@@ -108,8 +108,10 @@ typedef struct
     int32_t val;
   } cr0;
   uint32_t cr3;
+  bool intr;
 
   vaddr_t eip;
+
   uint32_t inst_cnt;
 
 } CPU_state;
