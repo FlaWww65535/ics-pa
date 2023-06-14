@@ -9,6 +9,7 @@ static _RegSet *do_event(_Event e, _RegSet *r)
     do_syscall(r);
     break;
   case _EVENT_TRAP:
+    printf("Trap\n");
     return schedule(r);
     break;
   default:
