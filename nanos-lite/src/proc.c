@@ -25,11 +25,13 @@ void load_prog(const char *filename)
   stack.end = stack.start + sizeof(pcb[i].stack);
 
   pcb[i].tf = _umake(&pcb[i].as, stack, stack, (void *)entry, NULL, NULL);
+  printf("make tf%d done:eip=%x,tf=%x\n", i, pcb[i].tf->eip, pcb[i].tf);
 }
 
 _RegSet *schedule(_RegSet *prev)
 {
+
   current->tf = prev;
   current = &pcb[0];
-  return &current->tf;
+  return current->tf;
 }

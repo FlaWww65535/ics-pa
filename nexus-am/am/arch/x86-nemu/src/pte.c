@@ -97,29 +97,24 @@ void _unmap(_Protect *p, void *va)
 
 _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *const argv[], char *const envp[])
 {
-  uint32_t *ptr = ustack.end;
-  // navyapps程序入口函数_start的 栈帧，即8个通用寄存器
-  for (int i = 0; i < 8; i++)
-  {
-    *ptr = 0x0;
-    ptr--;
-  }
-  // 陷阱帧，包括栈帧的8个通用寄存器
-  *ptr = 0x202;
-  ptr--; // eflags,即IF置1即可
-  *ptr = 0x8;
-  ptr--; // cs 为了diff test
-  *ptr = (uint32_t)entry;
-  ptr--; // eip
-  *ptr = 0x0;
-  ptr--; // error code
-  *ptr = 0x81;
-  ptr--; // irq id
-  for (int i = 0; i < 8; i++)
-  {
-    *ptr = 0x0;
-    ptr--;
-  }
-  ptr++;
-  return (_RegSet *)ptr; // 将会记录到tf
+  void *start = ustack.start;
+  void *end = ustack.end;
+  int32_t *stack_frame = (int32_t *)end;
+  stack_frame--;
+  *stack_frame = 0;
+  stack_frame--;
+  *stack_frame = NULL;
+  stack_frame--;
+  *stack_frame = NULL;
+
+  _RegSet *tf = (_RegSet *)stack_frame - 1;
+
+  tf->eip = entry;
+  tf->cs = 0x8;
+  tf->irq = 0x81;
+  tf->eflags = 0x202;
+  tf->error_code = 0x0;
+  printf("umake tf:eip=%x,addr = %x\n", tf->eip, tf);
+
+  return tf;
 }
