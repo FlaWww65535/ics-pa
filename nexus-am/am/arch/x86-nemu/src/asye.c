@@ -14,7 +14,6 @@ _RegSet *irq_handle(_RegSet *tf)
   if (H)
   {
     _Event ev;
-    printf("irq%x\n", tf->irq);
     switch (tf->irq)
     {
     case 0x80:
