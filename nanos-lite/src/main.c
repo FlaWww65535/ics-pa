@@ -31,7 +31,7 @@ int main()
 
   init_fs();
 
-  load_prog("/bin/dummy");
+  load_prog("/bin/text");
   _trap();
 
   panic("Should not reach here");
