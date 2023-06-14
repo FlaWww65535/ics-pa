@@ -72,7 +72,6 @@ uint32_t vaddr_read(vaddr_t addr, int len)
       data += (paddr_read(paddr, 1)) << 8 * i;
     }
     return data;
-    // assert(0);
   }
   else
   {
@@ -87,11 +86,10 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data)
   {
     // data cross the page boundary
     for (int i = 0; i < len; i++)
-    { // len 最大为4
+    {
       paddr_t paddr = page_translate(addr + i);
       paddr_write(paddr, 1, data >> 8 * i);
     }
-    // assert(0);
   }
   else
   {
