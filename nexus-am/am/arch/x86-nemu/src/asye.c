@@ -62,6 +62,7 @@ _RegSet *_make(_Area stack, void *entry, void *arg)
 
 void _trap()
 {
+  printf("trap\n");
   asm volatile("int $0x81");
 }
 
