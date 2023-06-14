@@ -46,6 +46,7 @@ int fs_open(const char *pathname, int flags, int mode)
     if (strcmp(file_table[i].name, pathname) == 0)
     {
       // Log("Open file %s successful:fd = %d\n", file_table[i].name, i);
+      file_table[i].open_offset = 0;
       return i;
     }
   }
