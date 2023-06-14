@@ -262,20 +262,17 @@ void exec_wrapper(bool print_flag)
 #ifdef DIFF_TEST
   uint32_t eip = cpu.eip;
 #endif
-
-  if (cpu.intr & cpu.IF)
-  {
-    cpu.intr = false;
-    raise_intr(TIMER_IRQ, cpu.eip);
-    update_eip();
-  }
-  else
-  {
-    update_eip();
-  }
+  update_eip();
 
 #ifdef DIFF_TEST
   void difftest_step(uint32_t);
   difftest_step(eip);
 #endif
+  if (cpu.intr & cpu.IF)
+  {
+    printf("time intr in nemu\n");
+    cpu.intr = false;
+    raise_intr(TIMER_IRQ, cpu.eip);
+    update_eip();
+  }
 }
