@@ -263,12 +263,14 @@ void exec_wrapper(bool print_flag)
   uint32_t eip = cpu.eip;
 #endif
 
-  update_eip();
-
   if (cpu.intr & cpu.IF)
   {
     cpu.intr = false;
     raise_intr(TIMER_IRQ, cpu.eip);
+    update_eip();
+  }
+  else
+  {
     update_eip();
   }
 
