@@ -9,6 +9,7 @@ asm_trap:
   pushl %esp
   call irq_handle
 
+  mov %esp, %eax;
   addl $4, %esp
 
   popal

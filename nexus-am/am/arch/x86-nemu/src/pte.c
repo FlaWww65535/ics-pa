@@ -97,6 +97,27 @@ void _unmap(_Protect *p, void *va)
 
 _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *const argv[], char *const envp[])
 {
-  printf("_umake\n");
-  return NULL;
+  void *start = ustack.start;
+  void *end = ustack.end;
+  int32_t *stack_frame = (int32_t *)end;
+  stack_frame--;
+  *stack_frame = 0;
+  stack_frame--;
+  *stack_frame = NULL;
+  stack_frame--;
+  *stack_frame = NULL;
+
+  _RegSet tf;
+
+  tf.ebp = end;
+  tf.esp = start;
+  tf.eip = entry;
+  tf.cs = 0x8;
+  tf.irq = 0x81;
+  tf.eflags = 0x202;
+  tf.error_code = 0x0;
+  _RegSet *tf_ptr = (_RegSet *)stack_frame - 1;
+  *tf_ptr = tf;
+
+  return tf_ptr;
 }

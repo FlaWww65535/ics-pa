@@ -31,5 +31,5 @@ _RegSet *schedule(_RegSet *prev)
 {
   current->tf = prev;
   current = &pcb[0];
-  return current;
+  return &current->tf;
 }
