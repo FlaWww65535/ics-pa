@@ -270,7 +270,6 @@ void exec_wrapper(bool print_flag)
 #endif
   if (cpu.intr & cpu.IF)
   {
-    printf("time intr in nemu\n");
     cpu.intr = false;
     raise_intr(TIMER_IRQ, cpu.eip);
     update_eip();
