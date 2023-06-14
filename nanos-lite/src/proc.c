@@ -26,6 +26,7 @@ void load_prog(const char *filename)
   stack.end = stack.start + sizeof(pcb[i].stack);
 
   pcb[i].tf = _umake(&pcb[i].as, stack, stack, (void *)entry, NULL, NULL);
+  current_game = &pcb[i];
 }
 
 _RegSet *schedule(_RegSet *prev)
@@ -35,7 +36,7 @@ _RegSet *schedule(_RegSet *prev)
   if (cnt++ == 1000)
   {
     cnt = 0;
-    current = &pcb[1];
+    current = &pcb[0];
   }
   else
   {
