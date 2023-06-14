@@ -175,5 +175,6 @@ static void get_display_info()
       sscanf(value, "%d", &screen_h);
   }
   fclose(dispinfo);
+  printf("scr_w:%d,scr_h:%d\n", screen_w, screen_h);
   assert(screen_w > 0 && screen_h > 0);
 }
