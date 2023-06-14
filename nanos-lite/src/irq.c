@@ -10,8 +10,6 @@ static _RegSet *do_event(_Event e, _RegSet *r)
     break;
   case _EVENT_TRAP:
     printf("Trap\n");
-    while (1)
-      ;
     break;
   default:
     panic("Unhandled event ID = %d", e.event);
