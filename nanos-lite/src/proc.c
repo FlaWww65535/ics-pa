@@ -31,7 +31,7 @@ _RegSet *schedule(_RegSet *prev)
 {
   static int cnt = 0;
   current->tf = prev;
-  if (cnt++ == 100000)
+  if (cnt++ == 10000)
   {
     cnt = 0;
     current = &pcb[1];
