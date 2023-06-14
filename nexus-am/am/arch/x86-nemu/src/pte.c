@@ -75,7 +75,7 @@ void _switch(_Protect *p)
 
 void _map(_Protect *p, void *va, void *pa)
 {
-  // printf("map vaddr %x to paddr %x\n", va, pa);
+  printf("map vaddr %x to paddr %x\n", va, pa);
   uint32_t *pdt = p->ptr;
   PDE pde = pdt[PDX(va)];
   if ((pde & 1) == 0)
@@ -114,7 +114,6 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
   tf->irq = 0x81;
   tf->eflags = 0x202;
   tf->error_code = 0x0;
-  printf("umake tf:eip=%x,addr = %x\n", tf->eip, tf);
 
   return tf;
 }
