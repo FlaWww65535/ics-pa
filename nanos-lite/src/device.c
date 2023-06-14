@@ -23,9 +23,7 @@ size_t events_read(void *buf, size_t len)
   {
     if (key == _KEY_F12)
     {
-
       current_game = current_game % 2 + 1;
-      Log("switch current %d", current_game);
     }
     if (key & KEYDOWN_MASK)
     {
