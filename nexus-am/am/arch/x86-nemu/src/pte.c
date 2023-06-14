@@ -107,17 +107,15 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
   stack_frame--;
   *stack_frame = NULL;
 
-  _RegSet tf;
+  _RegSet *tf = (_RegSet *)stack_frame - 1;
 
-  tf.ebp = end;
-  tf.esp = start;
-  tf.eip = entry;
-  tf.cs = 0x8;
-  tf.irq = 0x81;
-  tf.eflags = 0x202;
-  tf.error_code = 0x0;
-  _RegSet *tf_ptr = (_RegSet *)stack_frame - 1;
-  //*tf_ptr = tf;
+  tf->ebp = end;
+  tf->esp = start;
+  tf->eip = entry;
+  tf->cs = 0x8;
+  tf->irq = 0x81;
+  tf->eflags = 0x202;
+  tf->error_code = 0x0;
 
-  return tf_ptr;
+  return tf;
 }
