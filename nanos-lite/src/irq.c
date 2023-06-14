@@ -2,14 +2,13 @@
 
 static _RegSet *do_event(_Event e, _RegSet *r)
 {
-  Log("do_event: case:%d\n", e.event);
+  // Log("do_event: case:%d\n", e.event);
   switch (e.event)
   {
   case _EVENT_SYSCALL:
     do_syscall(r);
     break;
   case _EVENT_TRAP:
-    printf("Trap\n");
     return schedule(r);
     break;
   default:
