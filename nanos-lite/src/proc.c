@@ -37,6 +37,7 @@ _RegSet *schedule(_RegSet *prev)
   {
     cnt = 0;
     current = &pcb[0];
+    Log("switch");
   }
   else
   {
